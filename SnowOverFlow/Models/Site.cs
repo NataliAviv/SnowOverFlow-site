@@ -26,7 +26,7 @@ namespace SnowOverFlow.Models
 
         public enum DifficultyType
         {
-        easy,medium,hard
+          easy,medium,hard
         }
 
     }

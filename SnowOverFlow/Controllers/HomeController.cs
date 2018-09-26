@@ -17,18 +17,23 @@ namespace SnowOverFlow.Controllers
 
         public IActionResult About()
         {
-            ViewData["Message"] = "Your application description page.";
+            ViewData["Message"] = "WHY DO WE EXIST?";
 
             return View();
         }
 
         public IActionResult Contact()
         {
-            ViewData["Message"] = "Your contact page.";
+            ViewData["Message"] = "HOW TO REACH OUR TEAM?";
 
             return View();
         }
+        public IActionResult Continent()
+        {
+            ViewData["Message"] = "We have a few:";
 
+            return View();
+        }
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
