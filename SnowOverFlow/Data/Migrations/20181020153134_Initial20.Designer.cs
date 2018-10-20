@@ -6,15 +6,15 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using SnowOverFlow.Data;
-using SnowOverFlow.Models;
 using System;
 
 namespace SnowOverFlow.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181020153134_Initial20")]
+    partial class Initial20
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -185,45 +185,17 @@ namespace SnowOverFlow.Data.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int>("Continent");
+
                     b.Property<string>("Currency");
 
                     b.Property<string>("Language");
 
                     b.Property<string>("Name");
 
-                    b.Property<int>("continent");
-
                     b.HasKey("ID");
 
                     b.ToTable("Country");
-                });
-
-            modelBuilder.Entity("SnowOverFlow.Models.Site", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("BeerPrice");
-
-                    b.Property<int>("CountryId");
-
-                    b.Property<int>("Difficulty");
-
-                    b.Property<long>("Location");
-
-                    b.Property<string>("Name");
-
-                    b.Property<int>("Pistes");
-
-                    b.Property<int>("Rank");
-
-                    b.Property<DateTime>("SeasonEnd");
-
-                    b.Property<DateTime>("SeasonStart");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Site");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

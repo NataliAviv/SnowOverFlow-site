@@ -11,8 +11,8 @@ namespace SnowOverFlow.Models
         public string Name { get; set; }
         public string Language { get; set; }
         public string Currency { get; set; }
-        public int Continent { get; set; }
+        public int continent { get; set; }
     }
 
-    public enum Continent {Asia,Europe,North_America,South_America,Australia }
+    public enum continent {Asia,Europe,North_America,South_America,Australia }
 }

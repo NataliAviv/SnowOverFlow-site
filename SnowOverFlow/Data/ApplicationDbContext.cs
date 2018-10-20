@@ -24,5 +24,7 @@ namespace SnowOverFlow.Data
         }
 
         public DbSet<SnowOverFlow.Models.Country> Country { get; set; }
+
+        public DbSet<SnowOverFlow.Models.Site> Site { get; set; }
     }
 }
