@@ -12,9 +12,10 @@ using System;
 namespace SnowOverFlow.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181020164821_sites34")]
+    partial class sites34
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -236,20 +237,6 @@ namespace SnowOverFlow.Data.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Site");
-                });
-
-            modelBuilder.Entity("SnowOverFlow.Models.User", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("FavoriteSite");
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
