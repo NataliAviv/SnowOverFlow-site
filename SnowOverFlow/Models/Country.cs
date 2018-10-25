@@ -22,9 +22,9 @@ namespace SnowOverFlow.Models
         public string Currency { get; set; }
 
         [Required]
-        public int CountinentID { get; set; }
+        public int ContinentID { get; set; }
 
-        [ForeignKey("CountinentID")]
+        [ForeignKey("ContinentID")]
         public virtual Continent Continent { get; set; }
 
         public Country() { }
