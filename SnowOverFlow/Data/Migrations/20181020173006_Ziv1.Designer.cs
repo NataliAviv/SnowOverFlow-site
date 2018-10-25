@@ -12,9 +12,10 @@ using System;
 namespace SnowOverFlow.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181020173006_Ziv1")]
+    partial class Ziv1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -203,11 +204,9 @@ namespace SnowOverFlow.Data.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<int?>("continentID");
+                    b.Property<int>("continent");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("continentID");
 
                     b.ToTable("Country");
                 });
@@ -297,13 +296,6 @@ namespace SnowOverFlow.Data.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("SnowOverFlow.Models.Country", b =>
-                {
-                    b.HasOne("SnowOverFlow.Models.Continent", "continent")
-                        .WithMany("Countries")
-                        .HasForeignKey("continentID");
                 });
 #pragma warning restore 612, 618
         }
