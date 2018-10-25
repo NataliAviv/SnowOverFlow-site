@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,12 +9,27 @@ namespace SnowOverFlow.Models
 {
     public class Country
     {
+        [Key]
         public int ID { get; set; }
+
+        [Required]
         public string Name { get; set; }
+
+        [Required]
         public string Language { get; set; }
+
+        [Required]
         public string Currency { get; set; }
-        public int continent { get; set; }
+
+        [Required]
+        public int CountinentID { get; set; }
+
+        [ForeignKey("CountinentID")]
+        public virtual Continent Continent { get; set; }
+
+        public Country() { }
+
     }
 
-    public enum continent {Asia,Europe,North_America,South_America,Australia }
+    //public enum continent { Asia,Europe,North_America,South_America,Australia }
 }
