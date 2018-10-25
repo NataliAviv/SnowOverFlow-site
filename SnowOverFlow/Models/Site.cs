@@ -21,6 +21,7 @@ namespace SnowOverFlow.Models
         [ForeignKey("CountryId")]
         public virtual Country Country { get; set; }
 
+        [Range(1, 5)]
         public int Rank { get; set; }
 
         [Required]
@@ -33,22 +34,25 @@ namespace SnowOverFlow.Models
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime SeasonEnd { get; set; }
 
-        //לשאול אם הכוונה ב: צפון, דרום, מרכז
-        public long Location { get; set; }
+        [Required]
+        public double Latitude { get; set; }
 
         [Required]
+        public double Longtitude { get; set; }
+
+        [Required]
+        [Range(1,1000)]
         public int Pistes { get; set; }
 
         [Required]
-        public DifficultyType Difficulty { get; set; }
+        [Range(1,5)]
+        public double Difficulty { get; set; }
 
+        [Range(0,100)]
         public double BeerPrice { get; set; }
 
-
-        public enum DifficultyType
-        {
-          easy,medium,hard
-        }
+        
+       //public enum DifficultyType { easy,medium,hard }
 
     }
 }

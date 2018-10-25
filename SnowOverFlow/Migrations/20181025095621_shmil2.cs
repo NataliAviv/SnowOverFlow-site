@@ -2,9 +2,9 @@
 using System;
 using System.Collections.Generic;
 
-namespace SnowOverFlow.Data.Migrations
+namespace SnowOverFlow.Migrations
 {
-    public partial class sites40 : Migration
+    public partial class shmil2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

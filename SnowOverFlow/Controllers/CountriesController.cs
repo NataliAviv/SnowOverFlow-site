@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using SnowOverFlow.Data;
 using SnowOverFlow.Models;
 
-namespace SnowOverFlow
+namespace SnowOverFlow.Controllers
 {
     public class CountriesController : Controller
     {
@@ -22,7 +22,8 @@ namespace SnowOverFlow
         // GET: Countries
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Country.ToListAsync());
+            var applicationDbContext = _context.Country.Include(c => c.Continent);
+            return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Countries/Details/5
@@ -34,6 +35,7 @@ namespace SnowOverFlow
             }
 
             var country = await _context.Country
+                .Include(c => c.Continent)
                 .SingleOrDefaultAsync(m => m.ID == id);
             if (country == null)
             {
@@ -46,6 +48,7 @@ namespace SnowOverFlow
         // GET: Countries/Create
         public IActionResult Create()
         {
+            ViewData["ContinentID"] = new SelectList(_context.Continent, "ID", "Name");
             return View();
         }
 
@@ -54,7 +57,7 @@ namespace SnowOverFlow
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Name,Language,Currency,Continent")] Country country)
+        public async Task<IActionResult> Create([Bind("ID,Name,Language,Currency,ContinentID")] Country country)
         {
             if (ModelState.IsValid)
             {
@@ -62,6 +65,7 @@ namespace SnowOverFlow
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["ContinentID"] = new SelectList(_context.Continent, "ID", "Name", country.ContinentID);
             return View(country);
         }
 
@@ -78,6 +82,7 @@ namespace SnowOverFlow
             {
                 return NotFound();
             }
+            ViewData["ContinentID"] = new SelectList(_context.Continent, "ID", "Name", country.ContinentID);
             return View(country);
         }
 
@@ -86,7 +91,7 @@ namespace SnowOverFlow
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Name,Language,Currency,Continent")] Country country)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Name,Language,Currency,ContinentID")] Country country)
         {
             if (id != country.ID)
             {
@@ -113,6 +118,7 @@ namespace SnowOverFlow
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["ContinentID"] = new SelectList(_context.Continent, "ID", "Name", country.ContinentID);
             return View(country);
         }
 
@@ -125,6 +131,7 @@ namespace SnowOverFlow
             }
 
             var country = await _context.Country
+                .Include(c => c.Continent)
                 .SingleOrDefaultAsync(m => m.ID == id);
             if (country == null)
             {

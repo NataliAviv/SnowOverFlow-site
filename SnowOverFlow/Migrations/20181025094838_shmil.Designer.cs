@@ -6,13 +6,14 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using SnowOverFlow.Data;
+using SnowOverFlow.Models;
 using System;
 
-namespace SnowOverFlow.Data.Migrations
+namespace SnowOverFlow.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181013120642_Initial")]
-    partial class Initial
+    [Migration("20181025094838_shmil")]
+    partial class shmil
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -180,22 +181,87 @@ namespace SnowOverFlow.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("SnowOverFlow.Models.Continent", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Continent");
+                });
+
             modelBuilder.Entity("SnowOverFlow.Models.Country", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("Continent");
+                    b.Property<int>("ContinentID");
 
-                    b.Property<string>("Currency");
+                    b.Property<string>("Currency")
+                        .IsRequired();
 
-                    b.Property<string>("Language");
+                    b.Property<string>("Language")
+                        .IsRequired();
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("ContinentID");
+
+                    b.ToTable("Country");
+                });
+
+            modelBuilder.Entity("SnowOverFlow.Models.Site", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<double>("BeerPrice");
+
+                    b.Property<int>("CountryId");
+
+                    b.Property<int>("Difficulty");
+
+                    b.Property<double>("Latitude");
+
+                    b.Property<double>("Longtitude");
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.Property<int>("Pistes");
+
+                    b.Property<int>("Rank");
+
+                    b.Property<DateTime>("SeasonEnd");
+
+                    b.Property<DateTime>("SeasonStart");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("CountryId");
+
+                    b.ToTable("Site");
+                });
+
+            modelBuilder.Entity("SnowOverFlow.Models.User", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("FavoriteSite");
 
                     b.Property<string>("Name");
 
                     b.HasKey("ID");
 
-                    b.ToTable("Country");
+                    b.ToTable("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -240,6 +306,22 @@ namespace SnowOverFlow.Data.Migrations
                     b.HasOne("SnowOverFlow.Models.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("SnowOverFlow.Models.Country", b =>
+                {
+                    b.HasOne("SnowOverFlow.Models.Continent", "Continent")
+                        .WithMany("Countries")
+                        .HasForeignKey("ContinentID")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("SnowOverFlow.Models.Site", b =>
+                {
+                    b.HasOne("SnowOverFlow.Models.Country", "Country")
+                        .WithMany()
+                        .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

@@ -6,15 +6,15 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using SnowOverFlow.Data;
-using SnowOverFlow.Models;
 using System;
 
-namespace SnowOverFlow.Data.Migrations
+namespace SnowOverFlow.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181025095835_shmil3")]
+    partial class shmil3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -185,7 +185,8 @@ namespace SnowOverFlow.Data.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.HasKey("ID");
 
@@ -197,17 +198,20 @@ namespace SnowOverFlow.Data.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Currency");
+                    b.Property<int>("ContinentID");
 
-                    b.Property<string>("Language");
+                    b.Property<string>("Currency")
+                        .IsRequired();
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Language")
+                        .IsRequired();
 
-                    b.Property<int?>("continentID");
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.HasKey("ID");
 
-                    b.HasIndex("continentID");
+                    b.HasIndex("ContinentID");
 
                     b.ToTable("Country");
                 });
@@ -217,15 +221,18 @@ namespace SnowOverFlow.Data.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("BeerPrice");
+                    b.Property<double>("BeerPrice");
 
                     b.Property<int>("CountryId");
 
-                    b.Property<int>("Difficulty");
+                    b.Property<double>("Difficulty");
 
-                    b.Property<long>("Location");
+                    b.Property<double>("Latitude");
 
-                    b.Property<string>("Name");
+                    b.Property<double>("Longtitude");
+
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.Property<int>("Pistes");
 
@@ -236,6 +243,8 @@ namespace SnowOverFlow.Data.Migrations
                     b.Property<DateTime>("SeasonStart");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("CountryId");
 
                     b.ToTable("Site");
                 });
@@ -301,9 +310,18 @@ namespace SnowOverFlow.Data.Migrations
 
             modelBuilder.Entity("SnowOverFlow.Models.Country", b =>
                 {
-                    b.HasOne("SnowOverFlow.Models.Continent", "continent")
+                    b.HasOne("SnowOverFlow.Models.Continent", "Continent")
                         .WithMany("Countries")
-                        .HasForeignKey("continentID");
+                        .HasForeignKey("ContinentID")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("SnowOverFlow.Models.Site", b =>
+                {
+                    b.HasOne("SnowOverFlow.Models.Country", "Country")
+                        .WithMany()
+                        .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

@@ -20,7 +20,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="CountryId" class="control-label"></label>
-                <input asp-for="CountryId" class="form-control" />
+                <select asp-for="CountryId" class="form-control" asp-items="ViewBag.CountryId"></select>
                 <span asp-validation-for="CountryId" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -39,9 +39,14 @@
                 <span asp-validation-for="SeasonEnd" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Location" class="control-label"></label>
-                <input asp-for="Location" class="form-control" />
-                <span asp-validation-for="Location" class="text-danger"></span>
+                <label asp-for="Latitude" class="control-label"></label>
+                <input asp-for="Latitude" class="form-control" />
+                <span asp-validation-for="Latitude" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Longtitude" class="control-label"></label>
+                <input asp-for="Longtitude" class="form-control" />
+                <span asp-validation-for="Longtitude" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Pistes" class="control-label"></label>
@@ -50,7 +55,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Difficulty" class="control-label"></label>
-                <select asp-for="Difficulty" class="form-control"></select>
+                <input asp-for="Difficulty" class="form-control">
                 <span asp-validation-for="Difficulty" class="text-danger"></span>
             </div>
             <div class="form-group">

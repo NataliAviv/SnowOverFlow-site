@@ -18,12 +18,6 @@
             @Html.DisplayFor(model => model.Name)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.CountryId)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CountryId)
-        </dd>
-        <dt>
             @Html.DisplayNameFor(model => model.Rank)
         </dt>
         <dd>
@@ -42,10 +36,16 @@
             @Html.DisplayFor(model => model.SeasonEnd)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Location)
+            @Html.DisplayNameFor(model => model.Latitude)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Location)
+            @Html.DisplayFor(model => model.Latitude)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Longtitude)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Longtitude)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Pistes)
@@ -64,6 +64,12 @@
         </dt>
         <dd>
             @Html.DisplayFor(model => model.BeerPrice)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Country)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Country.Currency)
         </dd>
     </dl>
     

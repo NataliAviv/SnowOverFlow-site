@@ -16,9 +16,6 @@
                     @Html.DisplayNameFor(model => model.Name)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.CountryId)
-                </th>
-                <th>
                     @Html.DisplayNameFor(model => model.Rank)
                 </th>
                 <th>
@@ -28,7 +25,10 @@
                     @Html.DisplayNameFor(model => model.SeasonEnd)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Location)
+                    @Html.DisplayNameFor(model => model.Latitude)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Longtitude)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Pistes)
@@ -39,6 +39,9 @@
                 <th>
                     @Html.DisplayNameFor(model => model.BeerPrice)
                 </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Country)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -47,9 +50,6 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CountryId)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Rank)
@@ -61,7 +61,10 @@
                 @Html.DisplayFor(modelItem => item.SeasonEnd)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Location)
+                @Html.DisplayFor(modelItem => item.Latitude)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Longtitude)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Pistes)
@@ -71,6 +74,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.BeerPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Country.Currency)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |

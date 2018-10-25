@@ -21,9 +21,9 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Currency)
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.continent)
-                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Continent)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -40,7 +40,7 @@
                 @Html.DisplayFor(modelItem => item.Currency)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.continent)
+                @Html.DisplayFor(modelItem => item.Continent.Name)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
