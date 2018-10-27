@@ -16,11 +16,5 @@ namespace SnowOverFlow.Models
         public string Name { get; set; }
 
         public string FavoriteSite { get; set; }
-
-        [Required]
-        public int LikeID { get; set; }
-
-        [ForeignKey("LikeID")]
-        public virtual Like Like { get; set; }
     }
 }
