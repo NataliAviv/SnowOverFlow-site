@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SnowOverFlow.Models.User>
+﻿@model IEnumerable<SnowOverFlow.Models.Like>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,14 +13,11 @@
     <thead>
         <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.Name)
+                    @Html.DisplayNameFor(model => model.NumOfLikes)
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.FavoriteSite)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Like.NumOfLikes)
-                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -28,13 +25,10 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                @Html.DisplayFor(modelItem => item.NumOfLikes)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.FavoriteSite)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Like.NumOfLikes)
+                @Html.DisplayFor(modelItem => item.User.Name)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
