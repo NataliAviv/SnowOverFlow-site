@@ -30,5 +30,6 @@ namespace SnowOverFlow.Data
         public DbSet<SnowOverFlow.Models.Continent> Continent { get; set; }
 
         public DbSet<SnowOverFlow.Models.User> User { get; set; }
+        
     }
 }

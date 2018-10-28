@@ -52,7 +52,7 @@ namespace SnowOverFlow.Models
         public double BeerPrice { get; set; }
 
         
-       //public enum DifficultyType { easy,medium,hard }
+        //public enum DifficultyType { easy,medium,hard }
 
     }
 }
