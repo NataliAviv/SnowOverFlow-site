@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<SnowOverFlow.Models.Site>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "GroupByCountry";
 }
 
-<h2>Index</h2>
+<h2>GroupByCountry</h2>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -80,7 +80,7 @@
                 @Html.DisplayFor(modelItem => item.BeerPrice)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Country.Name)
+                @Html.DisplayFor(modelItem => item.Country.Currency)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
