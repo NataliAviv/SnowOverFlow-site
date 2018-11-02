@@ -48,7 +48,7 @@ namespace SnowOverFlow.Controllers
         // GET: Sites/Create
         public IActionResult Create()
         {
-            ViewData["CountryId"] = new SelectList(_context.Country, "ID", "Currency");
+            ViewData["CountryId"] = new SelectList(_context.Country, "ID", "Name");
             return View();
         }
 
@@ -65,7 +65,7 @@ namespace SnowOverFlow.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CountryId"] = new SelectList(_context.Country, "ID", "Currency", site.CountryId);
+            ViewData["CountryId"] = new SelectList(_context.Country, "ID", "Name");
             return View(site);
         }
 
@@ -156,5 +156,6 @@ namespace SnowOverFlow.Controllers
         {
             return _context.Site.Any(e => e.ID == id);
         }
+
     }
 }
