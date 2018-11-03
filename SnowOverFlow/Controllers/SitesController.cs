@@ -13,7 +13,7 @@ using SnowOverFlow.Utility;
 
 namespace SnowOverFlow.Controllers
 {
-  
+
     public class SitesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -70,7 +70,7 @@ namespace SnowOverFlow.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CountryId"] = new SelectList(_context.Country, "ID", "Name");
+            ViewData["CountryId"] = new SelectList(_context.Country, "ID", "Name", site.CountryId);
             return View(site);
         }
 
@@ -208,52 +208,23 @@ namespace SnowOverFlow.Controllers
 
 
 
-        public IActionResult blabla()
+        public IActionResult PriceLess20()
         {
 
-            IEnumerable<Site> result = from s in _context.Site
+            /*IEnumerable<Site> result = from s in _context.Site
                                        join c in _context.Country
                                        on s.CountryId equals c.ID
                                        where s.BeerPrice <= 20
-                                       select s;
+                                       select s;*/
+
+            IEnumerable<Site> result = _context.Site.GroupJoin(_context.Country, s => s.CountryId, c => c.ID,
+                                        (s, cs) => new { s, cs })
+                                        .Where(tp => tp.s.BeerPrice < 20)
+                                        .Select(tp => tp.s);
 
             return View(result);
         }
 
 
-        
-
-
-
-        /*public IActionResult BeerPriceCurrency()
-        {
-            var BeerPriceCurrency = from site in _context.Site
-                                    join country in _context.Country
-                                    on site.CountryId equals country.ID
-                                    select new
-                                    {
-                                        ID = site.ID,
-                                        Name = site.Name,
-                                        BeerPrice = site.BeerPrice,
-                                        Currency = country.Currency
-                                    };
-
-            var BeerPriceCurrency = from site in _context.Site
-                                    orderby site.CountryId ascending
-                                    join country in _context.Country
-                                    on site.CountryId equals country.ID into siteGroup
-                                    select new
-                                    {
-                                        
-                                    };
-
-            var q = _context.Site.Join(_context.Country,
-                                       s => s.CountryId,
-                                       c => c.ID,
-                                       (s, c) => new { site = s, country = c }).ToList();
-                                       
-
-            return View(q);
-        }*/
     }
 }

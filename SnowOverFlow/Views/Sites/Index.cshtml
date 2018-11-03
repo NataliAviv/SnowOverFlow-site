@@ -5,7 +5,109 @@
 }
 
 <h2>Index</h2>
+@section innerNavigation{
 
+    <h3>Search By Site</h3>
+    <input class="site_fillter" rel="site" type="checkbox" value="Mayrhofen"><span>Mayrhofen</span>
+    <br />
+    <input class="site_fillter" rel="site" type="checkbox" value="Whistler Blackcomb"><span>Whistler Blackcomb</span>
+    <br />
+    <input class="site_fillter" rel="site" type="checkbox" value="Hermon"><span>Hermon</span>
+    <br />
+    <input class="site_fillter" rel="site" type="checkbox" value="Hakuba"><span>Hakuba</span>
+    <br />
+    <input class="site_fillter" rel="site" type="checkbox" value="Laax"><span>Laax</span>
+    <br />
+    <input class="site_fillter" rel="site" type="checkbox" value="Livigno"><span>Livigno</span>
+    <br />
+    <input class="site_fillter" rel="site" type="checkbox" value="St.Anton"><span>St.Anton</span>
+    <br />
+    <hr />
+
+    <h3>Search By Rank</h3>
+    <input class="rank_fillter" rel="rank" type="checkbox" value="5"><span>1+</span>
+    <input class="rank_fillter" rel="rank" type="checkbox" value="7"><span>2+</span>
+    <input class="rank_fillter" rel="rank" type="checkbox" value="9"><span>3+</span>
+    <input class="rank_fillter" rel="rank" type="checkbox" value="5"><span>4+</span>
+    <input class="rank_fillter" rel="rank" type="checkbox" value="7"><span>5+</span>
+    <br /><br />
+}
+@section scripts
+    {
+
+    <script type="text/javascript">
+
+        $("input:checkbox").click(function () {
+            var showAll = true;
+            $('tr').not('.first').hide();
+            $('.site_fillter').each(function () {
+                if ($(this)[0].checked) {
+                    showAll = false;
+                    var status = $(this).attr('rel');
+                    var value = $(this).val();
+                    $('td.' + status + '[rel="' + value + '"]').parent('tr').show();
+                }
+            });
+
+            if (showAll) {
+                $('tr').show();
+            }
+
+            var min = null;
+            $('.rank_fillter').each(function () {
+                if ($(this)[0].checked) {
+                    var value = parseInt($(this).val(), 10);
+                    if ((min === null) || (value < min)) { min = value; }
+                }
+            })
+            if (min !== null) {
+                $('td.rank').filter(function () {
+                    return $(this).attr("rel") < min;
+                }).parent('tr').hide();
+            }
+
+        });
+
+        function searchSnow() {
+            $.ajax({
+                type: 'GET',
+                contentType: "application/json;charset=utf-8",
+                url: 'Sites/search',
+                dataType: 'json',
+                data: { "query": $("#searchtext").val() },
+                //traditional: true,
+                success: function (ajaxresult) {
+                    $("#searchresults").html(ajaxresult.html);
+                }
+            });
+            $("input:checkbox").attr("checked", false);
+        }
+        /*Menu-toggle*/
+        $("#menu-toggle").click(function (e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("active");
+            $("#data").toggleClass("active");
+        });
+
+
+    </script>
+}
+@section styles
+    {
+    <style>
+
+        label {
+            color: white;
+            font-family: CHOCB;
+            font-size: 24px;
+        }
+
+        span {
+            color: royalblue;
+            font-size: 18px;
+        }
+    </style>
+}
 <p>
     @if (User.IsInRole(SD.AdminEndUser))
     {
@@ -15,92 +117,113 @@
     <a asp-action="OrderByName">Order By Name</a>
     <a asp-action="OrderByRank">Oredr By Rank</a>
     <a asp-action="GroupByCountry">Group By Country</a>
-    <a asp-action="MinimumBeerPrice">Minimum Beer Price</a>
-    <a asp-action="BeerPriceCurrency">Beer Price Currency</a>
-    <a asp-action="blabla">blabla</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Rank)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.SeasonStart)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.SeasonEnd)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Latitude)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Longtitude)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Pistes)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Difficulty)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.BeerPrice)
-                </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Country)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Rank)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SeasonStart)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SeasonEnd)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Latitude)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Longtitude)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Pistes)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Difficulty)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BeerPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Country.Name)
-            </td>
-            <td>
-                @if (User.IsInRole(SD.AdminEndUser))
-                {
-                    @Html.Partial("_TableButtonPartialAdmin", item.ID)
-                }
-                @if (!User.IsInRole(SD.AdminEndUser))
-                {
-                    @Html.Partial("_TableButtonPartial", item.ID)
-                }
+<div id="wrapper">
+    <div id="page-content-wrapper">
+        <div class="content-header">
+            <h2>
+                <a id="menu-toggle" href="#" class="glyphicon glyphicon-align-justify btn-menu toggle"> </a>
+                List Of Sites
+            </h2>
+        </div>
+        <div class="page-content inset" data-spy="scroll" data-target="#spy" id="data">
+            <div id="searchBox">
+                <h3 style="color:black"> Search:  <input type="text" id="searchtext" onkeyup="return searchRestaurant()" value="שם רשת" /></h3>
+
+            </div>
+
+            <div id="searchresults">
+
+                <table class="sortable table">
+                    <thead>
+                        <tr class="first">
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.Name)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Rank)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.SeasonStart)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.SeasonEnd)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Latitude)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Longtitude)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Pistes)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Difficulty)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.BeerPrice)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Country)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Rank)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SeasonStart)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SeasonEnd)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Latitude)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Longtitude)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Pistes)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Difficulty)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.BeerPrice)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Country.Name)
+                                </td>
+                                <td>
+                                    @if (User.IsInRole(SD.AdminEndUser))
+                                    {
+                                        @Html.Partial("_TableButtonPartialAdmin", item.ID)
+                                    }
+                                    @if (!User.IsInRole(SD.AdminEndUser))
+                                    {
+                                        @Html.Partial("_TableButtonPartial", item.ID)
+                                    }
 
 
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
