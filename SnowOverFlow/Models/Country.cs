@@ -27,6 +27,8 @@ namespace SnowOverFlow.Models
         [ForeignKey("ContinentID")]
         public virtual Continent Continent { get; set; }
 
+        public virtual ICollection<Site> Sites { get; set; }
+
         public Country() { }
 
     }

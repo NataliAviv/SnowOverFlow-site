@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -159,5 +158,24 @@ namespace SnowOverFlow.Controllers
         {
             return _context.Country.Any(e => e.ID == id);
         }
+
+        /*public IActionResult AveRankCountry()
+        {
+            var countryRank = _context.Site.Include(s => s.Country).GroupBy(a => a.Country.Name)
+                                                        .Select(a => new { Name = a.Key, Rank = a.Sum(b => b.Rank) }).ToList();
+
+
+            var data = new List<dynamic>();
+
+            foreach (var country in countryRank)
+            {
+                var sitesNumber = _context.Country.Where(x => x.Name.Equals(country.Name)).First().Sites.Count;
+                
+                var rank = country.Rank / (sitesNumber);
+                data.Add(new { companyName = country.Name, Rank = rank });
+            }
+
+            return View(data);
+        }*/
     }
 }
