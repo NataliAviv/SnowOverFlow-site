@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using SnowOverFlow.Utility
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -8,12 +9,14 @@
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
     </environment>
     <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
             asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
@@ -23,34 +26,70 @@
     </script>
 </head>
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">SnowOverflow</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Continent">Continent</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-                </ul>
-                @await Html.PartialAsync("_LoginPartial")
-            </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">SnowOverFlow</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+
+                <li style="color:white">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-map-marker-alt"></i>
+                        &nbsp;
+                    </a>
+                </li>
+
+                <li class="nav-item active">
+
+                    @if (User.IsInRole(SD.AdminEndUser) || User.IsInRole(SD.CustomerEndUser)) { 
+                    <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Home
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" asp-controller="Countries" asp-action="Index">Countries</a>
+                        <a class="dropdown-item" asp-controller="Sites" asp-action="Index">Sites</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Map</a>
+                    </div>
+
+                </li>
+                
+                    <li>
+                        <a class="nav-link" asp-controller="Home" asp-action="About">About</a>
+                    </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Home" asp-action="Contact">Contact </a>
+                </li>
+                }
+            </ul>
+
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+        </div>
+         <div class="form-inline">
+            @await Html.PartialAsync("_loginPartial")
         </div>
     </nav>
+   
     <div class="container body-content">
+        <br/>
         @RenderBody()
+        <br/>
         <hr />
-        <footer>
-            <p>&copy; 2018 - Snow Overflow</p>
-        </footer>
     </div>
+
+    <footer class="footer">
+        <div class="cont">
+            <p class="text-muted">&copy; 2018 - Snow Overflow</p>
+        </div>
+    </footer>
+
 
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>

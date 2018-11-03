@@ -1,15 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SnowOverFlow.Data;
 using SnowOverFlow.Models;
+using SnowOverFlow.Utility;
 
 namespace SnowOverFlow.Controllers
 {
+  
     public class SitesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -44,7 +48,7 @@ namespace SnowOverFlow.Controllers
 
             return View(site);
         }
-
+        [Authorize(Roles = SD.AdminEndUser)]
         // GET: Sites/Create
         public IActionResult Create()
         {
@@ -55,6 +59,7 @@ namespace SnowOverFlow.Controllers
         // POST: Sites/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = SD.AdminEndUser)]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ID,Name,CountryId,Rank,SeasonStart,SeasonEnd,Latitude,Longtitude,Pistes,Difficulty,BeerPrice")] Site site)
@@ -65,10 +70,11 @@ namespace SnowOverFlow.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CountryId"] = new SelectList(_context.Country, "ID", "Name");
+            ViewData["CountryId"] = new SelectList(_context.Country, "ID", "Name", site.CountryId);
             return View(site);
         }
 
+        [Authorize(Roles = SD.AdminEndUser)]
         // GET: Sites/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -82,10 +88,10 @@ namespace SnowOverFlow.Controllers
             {
                 return NotFound();
             }
-            ViewData["CountryId"] = new SelectList(_context.Country, "ID", "Currency", site.CountryId);
+            ViewData["CountryId"] = new SelectList(_context.Country, "ID", "Name", site.CountryId);
             return View(site);
         }
-
+        [Authorize(Roles = SD.AdminEndUser)]
         // POST: Sites/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -118,10 +124,11 @@ namespace SnowOverFlow.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CountryId"] = new SelectList(_context.Country, "ID", "Currency", site.CountryId);
+            ViewData["CountryId"] = new SelectList(_context.Country, "ID", "Name", site.CountryId);
             return View(site);
         }
 
+        [Authorize(Roles = SD.AdminEndUser)]
         // GET: Sites/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -141,6 +148,7 @@ namespace SnowOverFlow.Controllers
             return View(site);
         }
 
+        [Authorize(Roles = SD.AdminEndUser)]
         // POST: Sites/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -157,5 +165,25 @@ namespace SnowOverFlow.Controllers
             return _context.Site.Any(e => e.ID == id);
         }
 
+
+        public IActionResult OrderByName()
+        {
+            var sites = from s in _context.Site
+                        orderby s.Name ascending
+                        select s;
+
+            return View(sites);
+        }
+
+        public IActionResult OrderByRank()
+        {
+            var sites = from s in _context.Site
+                        orderby s.Rank ascending
+                        select s;
+
+            return View(sites);
+        }
+
+        
     }
 }

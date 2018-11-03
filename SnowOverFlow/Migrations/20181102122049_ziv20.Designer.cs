@@ -11,9 +11,10 @@ using System;
 namespace SnowOverFlow.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181102122049_ziv20")]
+    partial class ziv20
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -143,10 +144,6 @@ namespace SnowOverFlow.Migrations
 
                     b.Property<bool>("EmailConfirmed");
 
-                    b.Property<string>("FirstName");
-
-                    b.Property<string>("LastName");
-
                     b.Property<bool>("LockoutEnabled");
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
@@ -226,7 +223,7 @@ namespace SnowOverFlow.Migrations
 
                     b.Property<double>("BeerPrice");
 
-                    b.Property<int>("CountryId");
+                    b.Property<int>("CountryID");
 
                     b.Property<double>("Difficulty");
 
@@ -247,7 +244,7 @@ namespace SnowOverFlow.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("CountryId");
+                    b.HasIndex("CountryID");
 
                     b.ToTable("Site");
                 });
@@ -324,7 +321,7 @@ namespace SnowOverFlow.Migrations
                 {
                     b.HasOne("SnowOverFlow.Models.Country", "Country")
                         .WithMany("Sites")
-                        .HasForeignKey("CountryId")
+                        .HasForeignKey("CountryID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

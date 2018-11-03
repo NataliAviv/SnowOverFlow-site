@@ -21,7 +21,7 @@ namespace SnowOverFlow.Models
         [ForeignKey("CountryId")]
         public virtual Country Country { get; set; }
 
-        [Range(1, 5)]
+        [Range(1, 10)]
         public int Rank { get; set; }
 
         [Required]

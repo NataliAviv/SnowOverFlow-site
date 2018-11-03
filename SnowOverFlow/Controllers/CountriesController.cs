@@ -1,15 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SnowOverFlow.Data;
 using SnowOverFlow.Models;
+using SnowOverFlow.Utility;
 
 namespace SnowOverFlow.Controllers
 {
+
     public class CountriesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -45,6 +47,7 @@ namespace SnowOverFlow.Controllers
             return View(country);
         }
 
+        [Authorize(Roles = SD.AdminEndUser)]
         // GET: Countries/Create
         public IActionResult Create()
         {
@@ -56,6 +59,7 @@ namespace SnowOverFlow.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Roles = SD.AdminEndUser)]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ID,Name,Language,Currency,ContinentID")] Country country)
         {
@@ -69,6 +73,7 @@ namespace SnowOverFlow.Controllers
             return View(country);
         }
 
+        [Authorize(Roles = SD.AdminEndUser)]
         // GET: Countries/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -91,6 +96,7 @@ namespace SnowOverFlow.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = SD.AdminEndUser)]
         public async Task<IActionResult> Edit(int id, [Bind("ID,Name,Language,Currency,ContinentID")] Country country)
         {
             if (id != country.ID)
@@ -121,7 +127,7 @@ namespace SnowOverFlow.Controllers
             ViewData["ContinentID"] = new SelectList(_context.Continent, "ID", "Name", country.ContinentID);
             return View(country);
         }
-
+        [Authorize(Roles = SD.AdminEndUser)]
         // GET: Countries/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -140,7 +146,7 @@ namespace SnowOverFlow.Controllers
 
             return View(country);
         }
-
+        [Authorize(Roles = SD.AdminEndUser)]
         // POST: Countries/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -156,5 +162,24 @@ namespace SnowOverFlow.Controllers
         {
             return _context.Country.Any(e => e.ID == id);
         }
+
+        /*public IActionResult AveRankCountry()
+        {
+            var countryRank = _context.Site.Include(s => s.Country).GroupBy(a => a.Country.Name)
+                                                        .Select(a => new { Name = a.Key, Rank = a.Sum(b => b.Rank) }).ToList();
+
+
+            var data = new List<dynamic>();
+
+            foreach (var country in countryRank)
+            {
+                var sitesNumber = _context.Country.Where(x => x.Name.Equals(country.Name)).First().Sites.Count;
+                
+                var rank = country.Rank / (sitesNumber);
+                data.Add(new { companyName = country.Name, Rank = rank });
+            }
+
+            return View(data);
+        }*/
     }
 }
