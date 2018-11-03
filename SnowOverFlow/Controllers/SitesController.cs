@@ -205,9 +205,29 @@ namespace SnowOverFlow.Controllers
             return View(MinBeerPrice);
         }
 
-        public IActionResult BeerPriceCurrency()
+
+
+
+        public IActionResult blabla()
         {
-            /*var BeerPriceCurrency = from site in _context.Site
+
+            IEnumerable<Site> result = from s in _context.Site
+                                       join c in _context.Country
+                                       on s.CountryId equals c.ID
+                                       where s.BeerPrice <= 20
+                                       select s;
+
+            return View(result);
+        }
+
+
+        
+
+
+
+        /*public IActionResult BeerPriceCurrency()
+        {
+            var BeerPriceCurrency = from site in _context.Site
                                     join country in _context.Country
                                     on site.CountryId equals country.ID
                                     select new
@@ -216,16 +236,16 @@ namespace SnowOverFlow.Controllers
                                         Name = site.Name,
                                         BeerPrice = site.BeerPrice,
                                         Currency = country.Currency
-                                    };*/
+                                    };
 
-            /*var BeerPriceCurrency = from site in _context.Site
+            var BeerPriceCurrency = from site in _context.Site
                                     orderby site.CountryId ascending
                                     join country in _context.Country
                                     on site.CountryId equals country.ID into siteGroup
                                     select new
                                     {
                                         
-                                    };*/
+                                    };
 
             var q = _context.Site.Join(_context.Country,
                                        s => s.CountryId,
@@ -234,6 +254,6 @@ namespace SnowOverFlow.Controllers
                                        
 
             return View(q);
-        }
+        }*/
     }
 }

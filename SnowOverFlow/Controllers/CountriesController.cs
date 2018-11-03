@@ -163,6 +163,32 @@ namespace SnowOverFlow.Controllers
             return _context.Country.Any(e => e.ID == id);
         }
 
+
+        //GET: api/ProductOrders/Statistics
+        [HttpGet("Statistics")]
+        public async Task<IActionResult> Statistics()
+        {
+
+            /*var groupedList = from productOrder in _context.ProductOrder
+                              join product in _context.Product
+                              on productOrder.ProductID equals product.ID
+                              where productOrder.OrderID == userId
+                              group product.ID by product.Price into depGroup
+                              select new { price = depGroup.Key, count = depGroup.Count() };
+            return Ok(groupedList);*/
+
+
+            var groupedList = from country in _context.Country
+                              join site in _context.Site
+                              on country.ID equals site.CountryId
+                              /*where country.ID == userId*/
+                              group site.ID by site.Country into depGroup
+                              select new { country = depGroup.Key, count = depGroup.Count() };
+            return Ok(groupedList);
+        }
+
+
+
         /*public IActionResult AveRankCountry()
         {
             var countryRank = _context.Site.Include(s => s.Country).GroupBy(a => a.Country.Name)
