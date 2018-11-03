@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+<h2>Search Country</h2>
 <p>
     @using (Html.BeginForm("Index","Countries",FormMethod.Get))
     {
@@ -16,8 +16,9 @@
 <p>
     @if (User.IsInRole(SD.AdminEndUser))
     {
-        <a asp-action="Create">Create New</a>
-        <i class="far fa-plus-square"></i>
+    <a type="button" class="my-nice-button" href="@Url.Action("Create/"+Model)">
+        <i class="far fa-plus-square fa-2x"></i>
+    </a> 
     }
 </p>
 <table class="table">
