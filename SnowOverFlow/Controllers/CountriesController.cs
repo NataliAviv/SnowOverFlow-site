@@ -36,6 +36,7 @@ namespace SnowOverFlow.Controllers
                 return NotFound();
             }
 
+
             var country = await _context.Country
                 .Include(c => c.Continent)
                 .SingleOrDefaultAsync(m => m.ID == id);
