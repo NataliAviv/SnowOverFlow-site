@@ -11,8 +11,8 @@ using System;
 namespace SnowOverFlow.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181103092738_eilonv3")]
-    partial class eilonv3
+    [Migration("20181103153443_ziv40")]
+    partial class ziv40
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

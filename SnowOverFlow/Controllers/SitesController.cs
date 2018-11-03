@@ -13,7 +13,7 @@ using SnowOverFlow.Utility;
 
 namespace SnowOverFlow.Controllers
 {
-  
+
     public class SitesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -168,22 +168,63 @@ namespace SnowOverFlow.Controllers
 
         public IActionResult OrderByName()
         {
-            var sites = from s in _context.Site
-                        orderby s.Name ascending
-                        select s;
+            var SitesByName = from s in _context.Site
+                              orderby s.Name ascending
+                              select s;
 
-            return View(sites);
+            return View(SitesByName);
         }
 
         public IActionResult OrderByRank()
         {
-            var sites = from s in _context.Site
-                        orderby s.Rank ascending
-                        select s;
+            var SitesByRank = from s in _context.Site
+                              orderby s.Rank ascending
+                              select s;
 
-            return View(sites);
+            return View(SitesByRank);
         }
 
-        
+        public IActionResult GroupByCountry()
+        {
+            var SitesByCountry = _context.Site.GroupBy(s => s.Country).SelectMany(c => c).ToList();
+
+            /*var SitesByCountry = from s in _context.Site
+                                 group s by s.Country into g
+                                 orderby g.Key
+                                 select new { name = g , Country = g.Key };*/
+
+            return View(SitesByCountry);
+        }
+
+        public IActionResult MinimumBeerPrice()
+        {
+            var MinBeerPrice = from s in _context.Site
+                               orderby s.BeerPrice ascending
+                               select s;
+
+            return View(MinBeerPrice);
+        }
+
+
+
+
+        public IActionResult PriceLess20()
+        {
+
+            /*IEnumerable<Site> result = from s in _context.Site
+                                       join c in _context.Country
+                                       on s.CountryId equals c.ID
+                                       where s.BeerPrice <= 20
+                                       select s;*/
+
+            IEnumerable<Site> result = _context.Site.GroupJoin(_context.Country, s => s.CountryId, c => c.ID,
+                                        (s, cs) => new { s, cs })
+                                        .Where(tp => tp.s.BeerPrice < 20)
+                                        .Select(tp => tp.s);
+
+            return View(result);
+        }
+
+
     }
 }
