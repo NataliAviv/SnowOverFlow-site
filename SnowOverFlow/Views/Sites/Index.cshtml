@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<SnowOverFlow.Models.Site>
 @using SnowOverFlow.Utility
+
 @{
     ViewData["Title"] = "Index";
 }
@@ -16,8 +17,7 @@
     <a asp-action="OrderByRank">Oredr By Rank</a>
     <a asp-action="GroupByCountry">Group By Country</a>
     <a asp-action="MinimumBeerPrice">Minimum Beer Price</a>
-    <a asp-action="BeerPriceCurrency">Beer Price Currency</a>
-    <a asp-action="blabla">blabla</a>
+    <a asp-action="PriceLess20">Price Less 20</a>
 </p>
 <table class="table">
     <thead>
@@ -97,8 +97,6 @@
                 {
                     @Html.Partial("_TableButtonPartial", item.ID)
                 }
-
-
             </td>
         </tr>
 }
