@@ -164,27 +164,37 @@ namespace SnowOverFlow.Controllers
         }
 
 
-        //GET: api/ProductOrders/Statistics
-        [HttpGet("Statistics")]
-        public async Task<IActionResult> Statistics()
+        //GET: countries/numSitesPercountry
+        [HttpGet("countries/numSitesPercountry")]
+        public async Task<IActionResult> numSitesPercountry()
         {
-
-            /*var groupedList = from productOrder in _context.ProductOrder
-                              join product in _context.Product
-                              on productOrder.ProductID equals product.ID
-                              where productOrder.OrderID == userId
-                              group product.ID by product.Price into depGroup
-                              select new { price = depGroup.Key, count = depGroup.Count() };
-            return Ok(groupedList);*/
-
-
             var groupedList = from country in _context.Country
                               join site in _context.Site
                               on country.ID equals site.CountryId
                               /*where country.ID == userId*/
                               group site.ID by site.Country into depGroup
                               select new { country = depGroup.Key, count = depGroup.Count() };
+
             return Ok(groupedList);
+        }
+
+        //GET: countries/numPistsPerSite
+        [HttpGet("countries/numPistsPerSite")]
+        public async Task<IActionResult> numPistsPerSite()
+        {
+            var results = from country in _context.Country
+                          join site in _context.Site
+                          on country.ID equals site.CountryId
+                          /*where country.ID == userId*/
+                          group site by site.Country into depGroup
+                          select new { country = depGroup.Key, count = depGroup.Sum(x=>x.Pistes) };
+
+            //from country in _context.Country
+            //join site in _context.Site
+            //on country.ID equals site.CountryId
+            //group site.ID by site.Country into depGroup
+            //select new { country = depGroup.Key, Sum = depGroup.Sum(_ => _.) };
+            return Ok(results);
         }
 
 
