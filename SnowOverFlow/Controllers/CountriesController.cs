@@ -22,10 +22,20 @@ namespace SnowOverFlow.Controllers
         }
 
         // GET: Countries
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchBy,string search)
         {
+            if(searchBy== "Language")
+            {
+                return View(_context.Country.Where(x=>x.Language==search||search==null).ToList());
+            }
+            if(searchBy == "Name")
+            {
+                return View(_context.Country.Where(x => x.Name.StartsWith(search)||search==null).ToList());
+            }
+            
             var applicationDbContext = _context.Country.Include(c => c.Continent);
             return View(await applicationDbContext.ToListAsync());
+
         }
 
         // GET: Countries/Details/5
@@ -187,25 +197,6 @@ namespace SnowOverFlow.Controllers
             return Ok(groupedList);
         }
 
-
-
-        /*public IActionResult AveRankCountry()
-        {
-            var countryRank = _context.Site.Include(s => s.Country).GroupBy(a => a.Country.Name)
-                                                        .Select(a => new { Name = a.Key, Rank = a.Sum(b => b.Rank) }).ToList();
-
-
-            var data = new List<dynamic>();
-
-            foreach (var country in countryRank)
-            {
-                var sitesNumber = _context.Country.Where(x => x.Name.Equals(country.Name)).First().Sites.Count;
-                
-                var rank = country.Rank / (sitesNumber);
-                data.Add(new { companyName = country.Name, Rank = rank });
-            }
-
-            return View(data);
-        }*/
+        
     }
 }
