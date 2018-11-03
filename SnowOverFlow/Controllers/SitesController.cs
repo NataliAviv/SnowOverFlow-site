@@ -1,15 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SnowOverFlow.Data;
 using SnowOverFlow.Models;
+using SnowOverFlow.Utility;
 
 namespace SnowOverFlow.Controllers
 {
+    [Authorize(Roles=SD.AdminEndUser)]
     public class SitesController : Controller
     {
         private readonly ApplicationDbContext _context;
