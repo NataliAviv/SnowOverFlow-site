@@ -4,7 +4,7 @@
     ViewData["Title"] = "GroupByCountry";
 }
 
-<h2>GroupByCountry</h2>
+<h2>Group By Country</h2>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -12,6 +12,8 @@
     <a asp-action="OrderByName">Order By Name</a>
     <a asp-action="OrderByRank">Oredr By Rank</a>
     <a asp-action="GroupByCountry">Group By Country</a>
+    <a asp-action="MinimumBeerPrice">Minimum Beer Price</a>
+    <a asp-action="BeerPriceCurrency">Beer Price Currency</a>
 </p>
 <table class="table">
     <thead>
@@ -80,7 +82,7 @@
                 @Html.DisplayFor(modelItem => item.BeerPrice)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Country.Currency)
+                @Html.DisplayFor(modelItem => item.Country.Name)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |

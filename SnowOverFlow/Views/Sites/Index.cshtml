@@ -7,13 +7,17 @@
 <h2>Index</h2>
 
 <p>
-    @if (User.IsInRole(SD.AdminEndUser)) {
+    @if (User.IsInRole(SD.AdminEndUser))
+    {
         <a asp-action="Create">Create New</a>
     }
     <a asp-action="Index">Show all</a>
     <a asp-action="OrderByName">Order By Name</a>
     <a asp-action="OrderByRank">Oredr By Rank</a>
     <a asp-action="GroupByCountry">Group By Country</a>
+    <a asp-action="MinimumBeerPrice">Minimum Beer Price</a>
+    <a asp-action="BeerPriceCurrency">Beer Price Currency</a>
+    <a asp-action="blabla">blabla</a>
 </p>
 <table class="table">
     <thead>

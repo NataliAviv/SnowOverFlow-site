@@ -70,7 +70,7 @@ namespace SnowOverFlow.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CountryId"] = new SelectList(_context.Country, "ID", "Name", site.CountryId);
+            ViewData["CountryId"] = new SelectList(_context.Country, "ID", "Name");
             return View(site);
         }
 
@@ -168,22 +168,92 @@ namespace SnowOverFlow.Controllers
 
         public IActionResult OrderByName()
         {
-            var sites = from s in _context.Site
-                        orderby s.Name ascending
-                        select s;
+            var SitesByName = from s in _context.Site
+                              orderby s.Name ascending
+                              select s;
 
-            return View(sites);
+            return View(SitesByName);
         }
 
         public IActionResult OrderByRank()
         {
-            var sites = from s in _context.Site
-                        orderby s.Rank ascending
-                        select s;
+            var SitesByRank = from s in _context.Site
+                              orderby s.Rank ascending
+                              select s;
 
-            return View(sites);
+            return View(SitesByRank);
         }
 
+        public IActionResult GroupByCountry()
+        {
+            var SitesByCountry = _context.Site.GroupBy(s => s.Country).SelectMany(c => c).ToList();
+
+            /*var SitesByCountry = from s in _context.Site
+                                 group s by s.Country into g
+                                 orderby g.Key
+                                 select new { name = g , Country = g.Key };*/
+
+            return View(SitesByCountry);
+        }
+
+        public IActionResult MinimumBeerPrice()
+        {
+            var MinBeerPrice = from s in _context.Site
+                               orderby s.BeerPrice ascending
+                               select s;
+
+            return View(MinBeerPrice);
+        }
+
+
+
+
+        public IActionResult blabla()
+        {
+
+            IEnumerable<Site> result = from s in _context.Site
+                                       join c in _context.Country
+                                       on s.CountryId equals c.ID
+                                       where s.BeerPrice <= 20
+                                       select s;
+
+            return View(result);
+        }
+
+
         
+
+
+
+        /*public IActionResult BeerPriceCurrency()
+        {
+            var BeerPriceCurrency = from site in _context.Site
+                                    join country in _context.Country
+                                    on site.CountryId equals country.ID
+                                    select new
+                                    {
+                                        ID = site.ID,
+                                        Name = site.Name,
+                                        BeerPrice = site.BeerPrice,
+                                        Currency = country.Currency
+                                    };
+
+            var BeerPriceCurrency = from site in _context.Site
+                                    orderby site.CountryId ascending
+                                    join country in _context.Country
+                                    on site.CountryId equals country.ID into siteGroup
+                                    select new
+                                    {
+                                        
+                                    };
+
+            var q = _context.Site.Join(_context.Country,
+                                       s => s.CountryId,
+                                       c => c.ID,
+                                       (s, c) => new { site = s, country = c }).ToList();
+                                       
+
+            return View(q);
+        }*/
     }
 }
