@@ -241,7 +241,9 @@ namespace SnowOverFlow.Controllers
                 if (result.Succeeded)
                 {
                     //Admin Name: Admin Av
-                    //admin@gmail.com
+                    //admin1@gmail.com
+                    //pas:!Aa123456
+
                     if(!await _roleManager.RoleExistsAsync(SD.AdminEndUser))
                     {
                         await _roleManager.CreateAsync(new IdentityRole(SD.AdminEndUser));
@@ -251,7 +253,8 @@ namespace SnowOverFlow.Controllers
                     {
                         await _roleManager.CreateAsync(new IdentityRole(SD.CustomerEndUser));
                     }
-                    if (user.Email == "admin@gmail.com" && user.FirstName == "Admin" && user.LastName == "Av")
+
+                    if (user.Email == "admin1@gmail.com" && user.FirstName == "Admin" && user.LastName == "Av")
                     {
                         await _userManager.AddToRoleAsync(user, SD.AdminEndUser);
                     }

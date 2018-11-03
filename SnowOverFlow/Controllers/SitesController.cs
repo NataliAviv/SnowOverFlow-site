@@ -13,7 +13,7 @@ using SnowOverFlow.Utility;
 
 namespace SnowOverFlow.Controllers
 {
-    [Authorize(Roles=SD.AdminEndUser)]
+  
     public class SitesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -48,7 +48,7 @@ namespace SnowOverFlow.Controllers
 
             return View(site);
         }
-
+        [Authorize(Roles = SD.AdminEndUser)]
         // GET: Sites/Create
         public IActionResult Create()
         {
@@ -59,6 +59,7 @@ namespace SnowOverFlow.Controllers
         // POST: Sites/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = SD.AdminEndUser)]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ID,Name,CountryId,Rank,SeasonStart,SeasonEnd,Latitude,Longtitude,Pistes,Difficulty,BeerPrice")] Site site)
@@ -73,6 +74,7 @@ namespace SnowOverFlow.Controllers
             return View(site);
         }
 
+        [Authorize(Roles = SD.AdminEndUser)]
         // GET: Sites/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -89,7 +91,7 @@ namespace SnowOverFlow.Controllers
             ViewData["CountryId"] = new SelectList(_context.Country, "ID", "Name", site.CountryId);
             return View(site);
         }
-
+        [Authorize(Roles = SD.AdminEndUser)]
         // POST: Sites/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -126,6 +128,7 @@ namespace SnowOverFlow.Controllers
             return View(site);
         }
 
+        [Authorize(Roles = SD.AdminEndUser)]
         // GET: Sites/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -145,6 +148,7 @@ namespace SnowOverFlow.Controllers
             return View(site);
         }
 
+        [Authorize(Roles = SD.AdminEndUser)]
         // POST: Sites/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
