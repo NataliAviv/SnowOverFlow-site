@@ -22,8 +22,16 @@ namespace SnowOverFlow.Controllers
         }
 
         // GET: Countries
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchBy,string search)
         {
+            if(searchBy=="Name")
+            {
+                return View(_context.Country.Where(x => x.Name.StartsWith(search)||search==null).ToList());
+            }
+            if(searchBy== "Language")
+            {
+                return View(_context.Country.Where(x => x.Language.StartsWith(search)||search==null).ToList());
+            }
             var applicationDbContext = _context.Country.Include(c => c.Continent);
             return View(await applicationDbContext.ToListAsync());
         }
