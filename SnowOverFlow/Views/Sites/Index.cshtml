@@ -22,33 +22,33 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Rank)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SeasonStart)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SeasonEnd)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Latitude)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Longtitude)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Pistes)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Difficulty)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BeerPrice)
-            </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Rank)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SeasonStart)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SeasonEnd)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Latitude)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Longtitude)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Pistes)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Difficulty)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BeerPrice)
+                </th>
             <th>
                 @Html.DisplayNameFor(model => model.Country)
             </th>
@@ -56,7 +56,7 @@
         </tr>
     </thead>
     <tbody>
-       @foreach (var item in Model) {
+@foreach (var item in Model) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)

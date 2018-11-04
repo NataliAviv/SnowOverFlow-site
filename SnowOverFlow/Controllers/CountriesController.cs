@@ -186,5 +186,26 @@ namespace SnowOverFlow.Controllers
                               select new { country = depGroup.Key, count = depGroup.Count() };
             return Ok(groupedList);
         }
+
+
+
+        /*public IActionResult AveRankCountry()
+        {
+            var countryRank = _context.Site.Include(s => s.Country).GroupBy(a => a.Country.Name)
+                                                        .Select(a => new { Name = a.Key, Rank = a.Sum(b => b.Rank) }).ToList();
+
+
+            var data = new List<dynamic>();
+
+            foreach (var country in countryRank)
+            {
+                var sitesNumber = _context.Country.Where(x => x.Name.Equals(country.Name)).First().Sites.Count;
+                
+                var rank = country.Rank / (sitesNumber);
+                data.Add(new { companyName = country.Name, Rank = rank });
+            }
+
+            return View(data);
+        }*/
     }
 }

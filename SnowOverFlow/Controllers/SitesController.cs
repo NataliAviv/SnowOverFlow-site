@@ -217,36 +217,13 @@ namespace SnowOverFlow.Controllers
                                        where s.BeerPrice <= 20
                                        select s;*/
 
-            IEnumerable<Site> result = _context.Site.Join(_context.Country, s => s.CountryId, c => c.ID,
-                                       (s , cs) => new { s , cs })
-                                       .Where(tp => tp.s.BeerPrice < 20)
-                                       .OrderBy(tp => tp.s.BeerPrice)
-                                       .Select(tp => tp.s);
+            IEnumerable<Site> result = _context.Site.GroupJoin(_context.Country, s => s.CountryId, c => c.ID,
+                                        (s, cs) => new { s, cs })
+                                        .Where(tp => tp.s.BeerPrice < 20)
+                                        .Select(tp => tp.s);
 
             return View(result);
         }
-
-        /*public IActionResult CountrySitesCounter()
-        {
-
-            var result = _context.Country.Join(_context.Site, c => c.ID, s => s.CountryId,
-                                          (c, s) => new { c, s })
-                                          .GroupBy(tp => tp.c, tp => tp.s)
-                                          .Select(g => new { g, NumSites = g.Count() })
-                                          .OrderByDescending(tp2 => tp2.NumSites)
-                                          .Select(tp2 => new { tp2.g.Key.Name , tp2.NumSites });
-
-            var group = new List<Country>();
-            foreach (var t in result)
-            {
-                group.Add(new Country()
-                {
-                    Name = t.Name,
-                });
-            }
-
-            return View(group);
-        }*/
 
 
     }
