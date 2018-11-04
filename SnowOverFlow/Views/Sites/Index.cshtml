@@ -4,21 +4,11 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Search By Sites</h2>
-<p>
-    @using (Html.BeginForm("Index", "Sites", FormMethod.Get))
-    {
-        <b>Search by:</b>@Html.RadioButton("searchBy", "Name") <text> Name</text>
-        <br />
-        @Html.TextBox("search")<input type="submit" value="Search" />
-    }
-</p>
+<h2>Index</h2>
 <p>
     @if (User.IsInRole(SD.AdminEndUser))
     {
-        <a type="button" class="my-nice-button" href="@Url.Action("Create/"+Model)">
-            <i class="far fa-plus-square fa-2x"></i>
-        </a>
+        <a asp-action="Create">Create New</a>
     }
     <a asp-action="Index">Show all</a>
     <a asp-action="OrderByName">Order By Name</a>
@@ -61,65 +51,54 @@
             <th></th>
         </tr>
     </thead>
-    @if (Model.Count() == 0)
-    {
-        <tr>
-            <td colspan="4">No rows match search criteria </td>
-        </tr>
-    }
-
-    else
-    {
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Rank)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.SeasonStart)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.SeasonEnd)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Latitude)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Longtitude)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Pistes)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Difficulty)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.BeerPrice)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Country.Name)
-                    </td>
-                    <td>
-                        @if (User.IsInRole(SD.AdminEndUser))
-                        {
-                            @Html.Partial("_TableButtonPartialAdmin", item.ID)
-                        }
-                        @if (!User.IsInRole(SD.AdminEndUser))
-                        {
-                            @Html.Partial("_TableButtonPartial", item.ID)
-                        }
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rank)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SeasonStart)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SeasonEnd)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Latitude)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Longtitude)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Pistes)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Difficulty)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BeerPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Country.Name)
+                </td>
+                <td>
+                    @if (User.IsInRole(SD.AdminEndUser))
+                    {
+                        @Html.Partial("_TableButtonPartialAdmin", item.ID)
+                    }
+                    @if (!User.IsInRole(SD.AdminEndUser))
+                    {
+                        @Html.Partial("_TableButtonPartial", item.ID)
+                    }
 
 
-                    </td>
-                </tr>
-            }
-            
-        </tbody>
+                </td>
+            </tr>
         }
-    </table>
+    </tbody>
+</table>
 

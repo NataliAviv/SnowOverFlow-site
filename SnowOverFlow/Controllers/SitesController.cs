@@ -24,12 +24,8 @@ namespace SnowOverFlow.Controllers
         }
 
         // GET: Sites
-        public async Task<IActionResult> Index(string searchBy,string search)
+        public async Task<IActionResult> Index()
         {
-            if (searchBy == "Name")
-            {
-                return View(_context.Site.Where(x => x.Name.StartsWith(search) || search == null).ToList());
-            }
             var applicationDbContext = _context.Site.Include(s => s.Country);
             return View(await applicationDbContext.ToListAsync());
         }

@@ -6,14 +6,6 @@
 }
 
 <h2>Index</h2>
-<p>
-    @using (Html.BeginForm("Index", "Countries", FormMethod.Get))
-    {
-        <b>Search by:</b>@Html.RadioButton("searchBy", "Name")<text>Name</text>
-        @Html.RadioButton("searchBy", "Language")<text>Language</text><br />
-        @Html.TextBox("search")<input type="submit" value="Search" />
-    }
-</p>
 @if (User.IsInRole(SD.AdminEndUser))
 {
     <p>

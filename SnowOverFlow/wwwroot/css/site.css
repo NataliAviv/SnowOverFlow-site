@@ -35,14 +35,28 @@ body {
         display: none;
     }
 }
-.my-nice-button > i {
-    color: black;
-}
+
 h3 {
     color: white;
     font-family: CHOCB;
     font-size: 20px;
 }
+
+
+#searchBox {
+    background: #dddddd;
+    width: 280px;
+    border-radius: 25px;
+    margin-top: -50px;
+}
+
+#searchresults {
+    overflow-y: scroll;
+    height: 250px;
+    width: 100%;
+}   
+
+
 
 .footer{
     position:absolute;
