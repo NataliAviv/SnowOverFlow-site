@@ -32,6 +32,11 @@ namespace SnowOverFlow.Controllers
             {
                 return View(_context.Country.Where(x => x.Language.StartsWith(search)||search==null).ToList());
             }
+            if (searchBy == "Continent")
+            {
+                return View(_context.Country.Where(x => x.Continent.Name.StartsWith(search) || search == null).ToList());
+            }
+
             var applicationDbContext = _context.Country.Include(c => c.Continent);
             return View(await applicationDbContext.ToListAsync());
         }

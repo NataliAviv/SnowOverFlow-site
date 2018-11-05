@@ -30,7 +30,14 @@ namespace SnowOverFlow.Controllers
             {
                 return View(_context.Site.Where(x => x.Name.StartsWith(search) || search == null).ToList());
             }
-            
+            if (searchBy == "Country")
+            {
+                return View(_context.Site.Where(x => x.Country.Name.StartsWith(search) || search == null).ToList());
+            }
+            if(searchBy=="Rank")
+            {
+                return View(_context.Site.Where(x => x.Rank.ToString(search)==search || search == null).ToList());
+            }
             var applicationDbContext = _context.Site.Include(s => s.Country);
             return View(await applicationDbContext.ToListAsync());
         }
