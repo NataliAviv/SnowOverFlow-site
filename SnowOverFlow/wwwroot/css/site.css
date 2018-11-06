@@ -36,27 +36,6 @@ body {
     }
 }
 
-h3 {
-    color: white;
-    font-family: CHOCB;
-    font-size: 20px;
-}
-
-
-#searchBox {
-    background: #dddddd;
-    width: 280px;
-    border-radius: 25px;
-    margin-top: -50px;
-}
-
-#searchresults {
-    overflow-y: scroll;
-    height: 250px;
-    width: 100%;
-}   
-
-
 
 .footer{
     position:absolute;
@@ -98,5 +77,39 @@ html{
 #The-Favorite-Site {
     text-shadow: 2px 2px #FF0000;
 }
+.w3-light-grey, .w3-hover-light-grey:hover, .w3-light-gray, .w3-hover-light-gray:hover {
+    color: #000!important;
+    background-color: #f1f1f1!important;
+}
+.w3-image {
+    max-width: 100%;
+    height: auto;
+}
+.w3-col, .w3-half, .w3-third, .w3-twothird, .w3-threequarter, .w3-quarter {
+    float: left;
+    width: 100%;
+}
+.w3-row-padding, .w3-row-padding > .w3-half, .w3-row-padding > .w3-third, .w3-row-padding > .w3-twothird, .w3-row-padding > .w3-threequarter, .w3-row-padding > .w3-quarter, .w3-row-padding > .w3-col {
+    padding: 0 8px;
+}
 
+    .w3-container:after, .w3-container:before, .w3-panel:after, .w3-panel:before, .w3-row:after, .w3-row:before, .w3-row-padding:after, .w3-row-padding:before, .w3-cell-row:before, .w3-cell-row:after, .w3-clear:after, .w3-clear:before, .w3-bar:before, .w3-bar:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+.w3-white, .w3-hover-white:hover {
+    color: #000 !important;
+    background-color: #fff !important;
+}
+
+
+body, h1, h2, h3, h4, h5, h6 {
+    font-family: "Raleway", Arial, Helvetica, sans-serif
+}
+
+.myLink {
+    display: none
+}
 
