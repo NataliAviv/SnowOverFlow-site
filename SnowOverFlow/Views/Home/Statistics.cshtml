@@ -2,6 +2,7 @@
     ViewData["Title"] = "Statistics";
     // Layout = "Statistics";
 }
+<h2>Statistics</h2>
 <style>
 
     .axis path,
@@ -52,93 +53,236 @@
             left: 0;
         }
 </style>
-<h2>Amount of Sites per country</h2>
-<div id="chart"></div>
-<script>
-    $(document).ready(function () {
-        $.getJSON("/countries/numSitesPercountry", function (data) {
+<p>
+    <div id="chart"></div>
+    <script>
 
-            var margin = { top: 40, right: 20, bottom: 30, left: 40 },
-                width = 960 - margin.left - margin.right,
-                height = 500 - margin.top - margin.bottom;
+        $(document).ready(function () {
+            $.getJSON("/countries/numSitesPercountry", function (data) {
 
-            var formatPercent = d3.format(".0%");
+                var margin = { top: 40, right: 20, bottom: 30, left: 40 },
+                    width = 960 - margin.left - margin.right,
+                    height = 500 - margin.top - margin.bottom;
 
-            var x = d3.scale.ordinal()
-                .rangeRoundBands([0, width], .1);
+                var formatPercent = d3.format("0");
 
-            var y = d3.scale.linear()
-                .range([height, 0]);
+                var x = d3.scale.ordinal()
+                    .rangeRoundBands([0, width], .1);
 
-            var xAxis = d3.svg.axis()
-                .scale(x)
-                .orient("bottom");
+                var y = d3.scale.linear()
+                    .range([height, 0]);
 
-            var yAxis = d3.svg.axis()
-                .scale(y)
-                .orient("left")
-                .tickFormat(formatPercent);
+                var xAxis = d3.svg.axis()
+                    .scale(x)
+                    .orient("bottom");
 
-            var tip = d3.tip()
-                .attr('class', 'd3-tip')
-                .offset([-10, 0])
-                .html(function (d) {
-                    return "<strong>count:</strong> <span style='color:#007bff'>" + d.count + "</span>";
-                })
+                var yAxis = d3.svg.axis()
+                    .scale(y)
+                    .orient("left")
+                    .tickFormat(formatPercent);
 
-            var svg = d3.select("body").append("svg")
-                .attr("width", width + margin.left + margin.right)
-                .attr("height", height + margin.top + margin.bottom)
-                .append("g")
-                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+                var tip = d3.tip()
+                    .attr('class', 'd3-tip')
+                    .offset([-10, 0])
+                    .html(function (d) {
+                        return "<strong>Sites:</strong> <span style='color:#007bff'>" + d.count + "</span>";
+                    })
 
-            svg.call(tip);
+                var svg = d3.select("body").append("svg")
+                    .attr("width", width + margin.left + margin.right)
+                    .attr("height", height + margin.top + margin.bottom)
+                    .append("g")
+                    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+                svg.call(tip);
 
 
-            x.domain(data.map(function (d) { return d.country.name; }));
-            y.domain([0, d3.max(data, function (d) { return d.count; })]);
+                x.domain(data.map(function (d) { return d.country.name; }));
+                y.domain([0, d3.max(data, function (d) { return d.count; })]);
 
-            svg.append("g")
-                .attr("class", "x axis")
-                .attr("transform", "translate(0," + height + ")")
-                .call(xAxis);
+                svg.append("g")
+                    .attr("class", "x axis")
+                    .attr("transform", "translate(0," + height + ")")
+                    .call(xAxis);
 
-            svg.append("g")
-                .attr("class", "y axis")
-                .call(yAxis)
-                .append("text")
-                .attr("transform", "rotate(-90)")
-                .attr("y", 6)
-                .attr("dy", ".71em")
-                .style("text-anchor", "end")
-                .text("count");
+                svg.append("g")
+                    .attr("class", "y axis")
+                    .call(yAxis)
+                    .append("text")
+                    .attr("transform", "rotate(-90)")
+                    .attr("y", 6)
+                    .attr("dy", ".71em")
+                    .style("text-anchor", "end")
+                    .text("count");
 
-            svg.selectAll(".bar")
-                .data(data)
-                .enter().append("rect")
-                .attr("class", "bar")
-                .attr("x", function (d) { return x(d.country.name); })
-                .attr("width", x.rangeBand())
-                .attr("y", function (d) { return y(d.count); })
-                .attr("height", function (d) { return height - y(d.count); })
-                .on('mouseover', tip.show)
-                .on('mouseout', tip.hide)
+                svg.selectAll(".bar")
+                    .data(data)
+                    .enter().append("rect")
+                    .attr("class", "bar")
+                    .attr("x", function (d) { return x(d.country.name); })
+                    .attr("width", x.rangeBand())
+                    .attr("y", function (d) { return y(d.count); })
+                    .attr("height", function (d) { return height - y(d.count); })
+                    .on('mouseover', tip.show)
+                    .on('mouseout', tip.hide)
 
-            function type(d) {
-                d.count = +d.count;
-                return d;
-            }
-        })
-    });
-</script>
-<script>
-    $(document).ready(function () {
-        $.getJSON("/countries/numPistsPerSite", function (data) {
-            console.log("shpich", data);
+                function type(d) {
+                    d.count = +d.count;
+                    return d;
+                }
+            })
         });
-    });
-</script>
+    </script>
+</p>
+@*<script>
+        $(document).ready(function () {
+            $.getJSON("/countries/numPistsPerSite", function (data) {
+                console.log("shpich", data);
+            });
+        });
+    </script>*@
 <script src="https://d3js.org/d3.v3.min.js"></script>
 <script src="https://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 @* that's where the second graph is starting *@
+<style>
+
+    .axis path,
+    .axis line {
+        fill: none;
+        stroke: #000;
+        shape-rendering: crispEdges;
+    }
+
+    .bar {
+        fill: darkgrey;
+    }
+
+        .bar:hover {
+            fill: #007bff;
+        }
+
+    .x.axis path {
+        display: none;
+    }
+
+    .d3-tip {
+        line-height: 1;
+        font-weight: bold;
+        padding: 12px;
+        background: rgba(0, 0, 0, 0.8);
+        color: #fff;
+        border-radius: 2px;
+    }
+
+        /* Creates a small triangle extender for the tooltip */
+        .d3-tip:after {
+            box-sizing: border-box;
+            display: inline;
+            font-size: 10px;
+            width: 100%;
+            line-height: 1;
+            color: rgba(0, 0, 0, 0.8);
+            content: "\25BC";
+            position: fixed;
+            text-align: center;
+        }
+
+        /* Style northward tooltips differently */
+        .d3-tip.n:after {
+            margin: -1px 0 0 0;
+            top: 100%;
+            left: 0;
+        }
+</style>
+
+<p>
+    <div id="chart"></div>
+    <script>
+        $(document).ready(function () {
+            $.getJSON("/countries/numPistsPerCountry", function (data) {
+
+                var margin = { top: 40, right: 20, bottom: 30, left: 40 },
+                    width = 960 - margin.left - margin.right,
+                    height = 500 - margin.top - margin.bottom;
+
+                var formatPercent = d3.format("0");
+
+                var x = d3.scale.ordinal()
+                    .rangeRoundBands([0, width], .1);
+
+                var y = d3.scale.linear()
+                    .range([height, 0]);
+
+                var xAxis = d3.svg.axis()
+                    .scale(x)
+                    .orient("bottom");
+
+                var yAxis = d3.svg.axis()
+                    .scale(y)
+                    .orient("left")
+                    .tickFormat(formatPercent);
+
+                var tip = d3.tip()
+                    .attr('class', 'd3-tip')
+                    .offset([-10, 0])
+                    .html(function (d) {
+                        return "<strong>Pistes:</strong> <span style='color:#007bff'>" + d.count + "</span>";
+                    })
+
+                var svg = d3.select("body").append("svg")
+                    .attr("width", width + margin.left + margin.right)
+                    .attr("height", height + margin.top + margin.bottom)
+                    .append("g")
+                    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+                svg.call(tip);
+
+
+                x.domain(data.map(function (d) { return d.site.name; }));
+                y.domain([0, d3.max(data, function (d) { return d.count; })]);
+
+                svg.append("g")
+                    .attr("class", "x axis")
+                    .attr("transform", "translate(0," + height + ")")
+                    .call(xAxis);
+
+                svg.append("g")
+                    .attr("class", "y axis")
+                    .call(yAxis)
+                    .append("text")
+                    .attr("transform", "rotate(-90)")
+                    .attr("y", 6)
+                    .attr("dy", ".71em")
+                    .style("text-anchor", "end")
+                    .text("count");
+
+                svg.selectAll(".bar")
+                    .data(data)
+                    .enter().append("rect")
+                    .attr("class", "bar")
+                    .attr("x", function (d) { return x(d.site.name); })
+                    .attr("width", x.rangeBand())
+                    .attr("y", function (d) { return y(d.count); })
+                    .attr("height", function (d) { return height - y(d.count); })
+                    .on('mouseover', tip.show)
+                    .on('mouseout', tip.hide)
+
+                function type(d) {
+                    d.count = +d.count;
+                    return d;
+                }
+            })
+        });
+    </script>
+</p>
+@*<script>
+        $(document).ready(function () {
+            $.getJSON("/countries/numPistsPerSite", function (data) {
+                console.log("shpich", data);
+            });
+        });
+    </script>*@
+<script src="https://d3js.org/d3.v3.min.js"></script>
+<script src="https://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+
 @* note: in the 27/10/2018 i tried to impelment different d3 graphs. that didnt work, then - i had to study to comp' structure. yalla bye *@

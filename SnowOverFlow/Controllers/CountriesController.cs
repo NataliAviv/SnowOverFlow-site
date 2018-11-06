@@ -187,16 +187,16 @@ namespace SnowOverFlow.Controllers
             return Ok(groupedList);
         }
 
-        //GET: countries/numPistsPerSite
-        [HttpGet("countries/numPistsPerSite")]
-        public async Task<IActionResult> numPistsPerSite()
+        //GET: countries/numPistsPerCountry
+        [HttpGet("countries/numPistsPerCountry")]
+        public async Task<IActionResult> numPistsPerCountry()
         {
             var results = from country in _context.Country
                           join site in _context.Site
                           on country.ID equals site.CountryId
                           /*where country.ID == userId*/
                           group site by site.Country into depGroup
-                          select new { country = depGroup.Key, count = depGroup.Sum(x=>x.Pistes) };
+                          select new { site = depGroup.Key, count = depGroup.Sum(x=>x.Pistes) };
 
             //from country in _context.Country
             //join site in _context.Site
@@ -224,7 +224,7 @@ namespace SnowOverFlow.Controllers
                 data.Add(new { companyName = country.Name, Rank = rank });
             }
 
-            return View(data);
+            return View(data);//////
         }*/
     }
 }
