@@ -135,8 +135,7 @@
         </dd>
     </dl>
 </div>
-<div id="disqus_thread"></div>
-<div>
+<div class="fb-like" data-href="https://www.facebook.com/Snow-Overflow-343155969579083/" data-layout="button" data-action="like" data-size="large" data-show-faces="true" data-share="true"></div><div>
     <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
@@ -188,6 +187,21 @@
     });
 
 </script>
+
+<!-- Start Facebook Share & Like Button -->
+<div id="fb-root"></div>
+<script>
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2';
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+</script>
+<!-- End Facebook Share & Like Button -->
+
+
 <script>
 
     /**
@@ -209,3 +223,8 @@
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <script src='//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/d3.min.js'></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9U27ZROmVD4qAONCZEM5QD0OJydE0Sz0&callback=myMap"></script>
+
+
+
+
+
