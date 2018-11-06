@@ -180,7 +180,7 @@ namespace SnowOverFlow.Controllers
 
         public IActionResult OrderByName()
         {
-            var SitesByName = from s in _context.Site
+            var SitesByName = from s in _context.Site.Include(s => s.Country)
                               orderby s.Name ascending
                               select s;
 
@@ -189,7 +189,7 @@ namespace SnowOverFlow.Controllers
 
         public IActionResult OrderByRank()
         {
-            var SitesByRank = from s in _context.Site
+            var SitesByRank = from s in _context.Site.Include(s => s.Country)
                               orderby s.Rank ascending
                               select s;
 
@@ -198,7 +198,7 @@ namespace SnowOverFlow.Controllers
 
         public IActionResult GroupByCountry()
         {
-            var SitesByCountry = _context.Site.GroupBy(s => s.Country).SelectMany(c => c).ToList();
+            var SitesByCountry = _context.Site.GroupBy(s => s.Country).SelectMany(c => c).Include(s => s.Country).ToList();
 
             /*var SitesByCountry = from s in _context.Site
                                  group s by s.Country into g
@@ -210,7 +210,7 @@ namespace SnowOverFlow.Controllers
 
         public IActionResult MinimumBeerPrice()
         {
-            var MinBeerPrice = from s in _context.Site
+            var MinBeerPrice = from s in _context.Site.Include(s => s.Country)
                                orderby s.BeerPrice ascending
                                select s;
 
@@ -229,7 +229,7 @@ namespace SnowOverFlow.Controllers
                                        where s.BeerPrice <= 20
                                        select s;*/
 
-            IEnumerable<Site> result = _context.Site.GroupJoin(_context.Country, s => s.CountryId, c => c.ID,
+            IEnumerable<Site> result = _context.Site.Include(s => s.Country).GroupJoin(_context.Country, s => s.CountryId, c => c.ID,
                                         (s, cs) => new { s, cs })
                                         .Where(tp => tp.s.BeerPrice < 20)
                                         .Select(tp => tp.s);
