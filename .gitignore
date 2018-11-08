@@ -261,3 +261,4 @@ __pycache__/
 *.pyc
 /SnowOverFlow/Models
 /SnowOverFlow/Views
+/SnowOverFlow/Controllers
