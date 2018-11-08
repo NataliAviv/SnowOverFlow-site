@@ -63,6 +63,14 @@ namespace SnowOverFlow
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+            app.Use(async (ctx, next) =>
+            {
+                await next();
+                if (ctx.Response.StatusCode == 404 && !ctx.Response.HasStarted)
+                {
+                    ctx.Response.Redirect("/Error");
+                }
+            });
         }
     }
 }
