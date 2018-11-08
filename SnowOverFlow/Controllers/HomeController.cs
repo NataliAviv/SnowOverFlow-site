@@ -15,6 +15,7 @@ namespace SnowOverFlow.Controllers
             return View();
         }
 
+
         public IActionResult About()
         {
             ViewData["Message"] = "WHY DO WE EXIST?";
