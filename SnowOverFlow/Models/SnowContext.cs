@@ -15,6 +15,10 @@ namespace SnowOverFlow.Data
         {
         }
 
+        public ApplicationDbContext()
+        {
+        }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Like>().HasKey(x => new { x.UserID, x.SiteID });

@@ -22,8 +22,21 @@ namespace SnowOverFlow.Controllers
         }
 
         // GET: Countries
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchBy,string search)
         {
+            if(searchBy=="Name")
+            {
+                return View(_context.Country.Where(x => x.Name.StartsWith(search)||search==null).ToList());
+            }
+            if(searchBy== "Language")
+            {
+                return View(_context.Country.Where(x => x.Language.StartsWith(search)||search==null).ToList());
+            }
+            if (searchBy == "Continent")
+            {
+                return View(_context.Country.Where(x => x.Continent.Name.StartsWith(search) || search == null).ToList());
+            }
+
             var applicationDbContext = _context.Country.Include(c => c.Continent);
             return View(await applicationDbContext.ToListAsync());
         }
@@ -35,6 +48,7 @@ namespace SnowOverFlow.Controllers
             {
                 return NotFound();
             }
+
 
             var country = await _context.Country
                 .Include(c => c.Continent)
@@ -163,6 +177,42 @@ namespace SnowOverFlow.Controllers
             return _context.Country.Any(e => e.ID == id);
         }
 
+
+        //GET: countries/numSitesPercountry
+        [HttpGet("countries/numSitesPercountry")]
+        public async Task<IActionResult> numSitesPercountry()
+        {
+            var groupedList = from country in _context.Country
+                              join site in _context.Site
+                              on country.ID equals site.CountryId
+                              /*where country.ID == userId*/
+                              group site.ID by site.Country into depGroup
+                              select new { country = depGroup.Key, count = depGroup.Count() };
+
+            return Ok(groupedList);
+        }
+
+        //GET: countries/numPistsPerCountry
+        [HttpGet("countries/numPistsPerCountry")]
+        public async Task<IActionResult> numPistsPerCountry()
+        {
+            var results = from country in _context.Country
+                          join site in _context.Site
+                          on country.ID equals site.CountryId
+                          /*where country.ID == userId*/
+                          group site by site.Country into depGroup
+                          select new { site = depGroup.Key, count = depGroup.Sum(x=>x.Pistes) };
+
+            //from country in _context.Country
+            //join site in _context.Site
+            //on country.ID equals site.CountryId
+            //group site.ID by site.Country into depGroup
+            //select new { country = depGroup.Key, Sum = depGroup.Sum(_ => _.) };
+            return Ok(results);
+        }
+
+
+
         /*public IActionResult AveRankCountry()
         {
             var countryRank = _context.Site.Include(s => s.Country).GroupBy(a => a.Country.Name)
@@ -179,7 +229,7 @@ namespace SnowOverFlow.Controllers
                 data.Add(new { companyName = country.Name, Rank = rank });
             }
 
-            return View(data);
+            return View(data);//////
         }*/
     }
 }

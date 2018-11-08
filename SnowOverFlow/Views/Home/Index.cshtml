@@ -1,3 +1,127 @@
 ﻿@{
-    ViewData["Title"] = "";
+    ViewData["Title"] = "Home Page";
 }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<body id="myPage">
+
+    <section>
+        <!-- Work Row -->
+        <div class="w3-row-padding w3-padding-64 w3-theme-l1" id="work">
+
+            <div class="w3-quarter">
+                <h2>Our Work</h2>
+                <p>
+                    Founded in 2018, Snow Overflow is the largest, most trusted online community for Snow addicts to learn, share their knowledge, and build their careers.<br />
+                    not more than 5 professional and aspiring riders visit Snow Overflow each month to enrich other user's knowledge on how to develop new skills and miss job opportunities.
+                </p>
+            </div>
+
+            <div class="w3-quarter">
+                <div class="w3-card w3-white">
+                    <img src="~/images/5606416292_9d9acbd4c0_o.jpg" alt="Snow" style="width:100%">
+                    <div class="w3-container">
+                        <h3>Davos</h3>
+                        <p>
+                            Davos is an Alpine town, and a municipality in the Prättigau/Davos Region in the canton of Graubünden, Switzerland. It has a permanent population of 11,060 (2016).Davos is located on the river Landwasser,
+                            in the Rhaetian Alps, between the Plessur and Albula Range at 1,560 m (5,120 ft) above sea level.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w3-quarter">
+                <div class="w3-card w3-white">
+                    <img src="~/images/191035.jpg" alt="Lights" style="width:100%">
+                    <div class="w3-container">
+                        <h3>Val Thorens</h3>
+                        <p>
+                            In no other European skiing village are you as close to heaven as in Val Thorens.
+                            The famous winter sports village in the French region Rhône-Alpes lies at an altitude of 2.300 m,
+                            offers a breath-taking view to the French as well as the Swiss and Italian Alps and is thus regarded as the highest
+                            skiing station of Europe.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w3-quarter">
+                <div class="w3-card w3-white">
+                    <img src="~/images/5606415930_484f97965f_o.jpg" alt="Mountains" style="width:100%">
+                    <div class="w3-container">
+                        <h3>St Anton</h3>
+                        <p>
+                            Sankt Anton am Arlberg, commonly referred to as St. Anton, is a village and ski resort
+                            in the Austrian state of Tyrol. It lies in the Tyrolean Alps, with aerial tramways and chairlifts up to 2,811 m (9,222 ft), yielding a vertical drop of 1,507 m (4,944 ft).
+                            Skiing has a long history in St. Anton: ski instructors from the area emigrated to the US in the 1930s, helping to popularise the sport.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--reccommandations-->
+    <section>
+        <aside style="font-size:larger; font-style:italic;color:black;float:right;width:300px;border:medium">
+            <h3>Our Reccommandations:</h3>
+            <h3>inforamtion....bla</h3>
+            <h3>inforamtion....bla</h3>
+            <h3>inforamtion....bla</h3>
+            <h3>inforamtion....bla</h3>
+            <h3>inforamtion....bla</h3>
+            <h3>inforamtion....bla</h3>
+            <h3>inforamtion....bla</h3>
+        </aside>
+    </section>
+    <!----video---->
+    <h3>And if that's not enough let's see a video</h3>
+    <video width="800" height="500" controls>
+        <source src="~/video/St. Anton am Arlberg - Mein Skigebiet! (1).mp4" type="video/mp4">
+        <source src="movie.ogg" type="video/ogg">
+        Your browser does not support the video tag.
+    </video>
+
+    <!-- Footer -->
+    <footer>
+
+        <div style="position:relative;bottom:100px;z-index:1;" class="w3-tooltip w3-right">
+            <span class="w3-text w3-padding w3-teal w3-hide-small">Go To Top</span>
+            <a class="w3-button w3-theme" href="#myPage">
+                <span class="w3-xlarge">
+                    <i class="fa fa-chevron-circle-up"></i>
+                </span>
+            </a>
+        </div>
+    </footer>
+
+    <script>
+        // Script for side navigation
+        function w3_open() {
+            var x = document.getElementById("mySidebar");
+            x.style.width = "300px";
+            x.style.paddingTop = "10%";
+            x.style.display = "block";
+        }
+
+        // Close side navigation
+        function w3_close() {
+            document.getElementById("mySidebar").style.display = "none";
+        }
+
+        // Used to toggle the menu on smaller screens when clicking on the menu button
+        function openNav() {
+            var x = document.getElementById("navDemo");
+            if (x.className.indexOf("w3-show") == -1) {
+                x.className += " w3-show";
+            } else {
+                x.className = x.className.replace(" w3-show", "");
+            }
+        }
+    </script>
+
+</body>
+
+

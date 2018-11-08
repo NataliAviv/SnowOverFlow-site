@@ -496,7 +496,6 @@ namespace SnowOverFlow.Controllers
                 return RedirectToAction(nameof(HomeController.Index), "Home");
             }
         }
-
         #endregion
     }
 }

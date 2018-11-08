@@ -14,7 +14,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace SnowOverFlow.Controllers
 {
-  
+
     public class SitesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -28,8 +28,20 @@ namespace SnowOverFlow.Controllers
         }
 
         // GET: Sites
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchBy, string search)
         {
+            if (searchBy == "Name")
+            {
+                return View(_context.Site.Where(x => x.Name.StartsWith(search) || search == null).ToList());
+            }
+            if (searchBy == "Country")
+            {
+                return View(_context.Site.Where(x => x.Country.Name.StartsWith(search) || search == null).ToList());
+            }
+            if(searchBy=="Rank")
+            {
+                return View(_context.Site.Where(x => x.Rank.ToString(search)==search || search == null).ToList());
+            }
             var applicationDbContext = _context.Site.Include(s => s.Country);
             return View(await applicationDbContext.ToListAsync());
         }
@@ -172,23 +184,43 @@ namespace SnowOverFlow.Controllers
 
         public IActionResult OrderByName()
         {
-            var sites = from s in _context.Site
-                        orderby s.Name ascending
-                        select s;
+            var SitesByName = from s in _context.Site.Include(s => s.Country)
+                              orderby s.Name ascending
+                              select s;
 
-            return View(sites);
+            return View(SitesByName);
         }
 
         public IActionResult OrderByRank()
         {
-            var sites = from s in _context.Site
-                        orderby s.Rank ascending
-                        select s;
+            var SitesByRank = from s in _context.Site.Include(s => s.Country)
+                              orderby s.Rank ascending
+                              select s;
 
-            return View(sites);
+            return View(SitesByRank);
         }
 
-        // GET: sites/getLike
+        public IActionResult GroupByCountry()
+        {
+            var SitesByCountry = _context.Site.GroupBy(s => s.Country).SelectMany(c => c).Include(s => s.Country).ToList();
+
+            /*var SitesByCountry = from s in _context.Site
+                                 group s by s.Country into g
+                                 orderby g.Key
+                                 select new { name = g , Country = g.Key };*/
+
+            return View(SitesByCountry);
+        }
+
+        public IActionResult MinimumBeerPrice()
+        {
+            var MinBeerPrice = from s in _context.Site.Include(s => s.Country)
+                               orderby s.BeerPrice ascending
+                               select s;
+
+            return View(MinBeerPrice);
+        }
+
         [HttpGet]
         public async Task<IActionResult> getLike(int? siteId)
         {
@@ -225,6 +257,23 @@ namespace SnowOverFlow.Controllers
             var sites2 = _context.Site.Where(x => siteIds.Contains(x.ID));
 
             return Ok(sites2);
+        }
+
+        public IActionResult PriceLess20()
+        {
+
+            /*IEnumerable<Site> result = from s in _context.Site
+                                       join c in _context.Country
+                                       on s.CountryId equals c.ID
+                                       where s.BeerPrice <= 20
+                                       select s;*/
+
+            IEnumerable<Site> result = _context.Site.Include(s => s.Country).GroupJoin(_context.Country, s => s.CountryId, c => c.ID,
+                                        (s, cs) => new { s, cs })
+                                        .Where(tp => tp.s.BeerPrice < 20)
+                                        .Select(tp => tp.s);
+
+            return View(result);
         }
 
 
