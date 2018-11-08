@@ -9,33 +9,45 @@
 <p><br /></p>
 <!-- Team Container -->
 
-    <div class="w3-container w3-padding-64 w3-center" id="team">
-        <h2>OUR TEAM</h2>
+<div class="w3-container w3-padding-64 w3-center" id="team">
+    <canvas id="myCanvas" width="200" height="70">
+        Your browser does not support the canvas element.
+    </canvas>
 
-        <div class="row">
-            <br>
-            <div class="w3-quarter">
-                <img src="~/images/eilon.jpg" alt="Boss" style="width:20%" class="w3-circle w3-hover-opacity">
-                <h3>Eilon Vainboim</h3>
+    <script>
+        var canvas = document.getElementById("myCanvas");
+        var ctx = canvas.getContext("2d");
+        ctx.font = "40px Comic Sans MS";
+        ctx.fillStyle = "black";
+        ctx.textAlign = "center";
+        ctx.fillText("Our Team", canvas.width / 2, canvas.height / 2);
+    </script>
+    <h2></h2>
 
-            </div>
-            <div class="w3-quarter">
-                <img src="~/images/ziv.jpg" alt="Boss" style="width:20%" class="w3-circle w3-hover-opacity">
-                <h3>Ziv Cohen</h3>
+    <div class="row">
+        <br>
+        <div class="w3-quarter">
+            <img src="~/images/eilon.jpg" alt="Boss" style="width:30%" class="w3-circle w3-hover-opacity">
+            <h3>Eilon Vainboim</h3>
 
-            </div>
-
-            <div class="w3-quarter">
-                <img src="~/images/ido.jpg" alt="Boss" style="width:20%" class="w3-circle w3-hover-opacity">
-                <h3>Ido Ben Simon</h3>
-
-            </div>
-
-            <div class="w3-quarter">
-                <img src="~/images/natali.jpg" alt="Boss" style="width:20%" class="w3-circle w3-hover-opacity">
-                <h3>Natali Aviv</h3>
-            </div>
+        </div>
+        <div class="w3-quarter">
+            <img src="~/images/ziv.jpg" alt="Boss" style="width:30%" class="w3-circle w3-hover-opacity">
+            <h3>Ziv Cohen</h3>
 
         </div>
 
+        <div class="w3-quarter">
+            <img src="~/images/ido.jpg" alt="Boss" style="width:30%" class="w3-circle w3-hover-opacity">
+            <h3>Ido Ben Simon</h3>
+
+        </div>
+
+        <div class="w3-quarter">
+            <img src="~/images/natali.jpg" alt="Boss" style="width:30%" class="w3-circle w3-hover-opacity">
+            <h3>Natali Aviv</h3>
+        </div>
+
     </div>
+
+</div>

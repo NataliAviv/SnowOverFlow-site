@@ -1,127 +1,186 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<body id="myPage">
+<link rel="stylesheet" href="~/css/site.css" />
 
-    <section>
-        <!-- Work Row -->
-        <div class="w3-row-padding w3-padding-64 w3-theme-l1" id="work">
+<body class="w3-light-grey">
+    <style>
+        body, h1, h2, h3, h4, h5, h6 {
+            font-family: Comic Sans MS;
+        }
 
-            <div class="w3-quarter">
-                <h2>Our Work</h2>
-                <p>
-                    Founded in 2018, Snow Overflow is the largest, most trusted online community for Snow addicts to learn, share their knowledge, and build their careers.<br />
-                    not more than 5 professional and aspiring riders visit Snow Overflow each month to enrich other user's knowledge on how to develop new skills and miss job opportunities.
-                </p>
+        .myLink {
+            display: none
+        }
+    </style>
+
+
+    <!-- Header -->
+    <header class="w3-display-container w3-content w3-hide-small" style="max-width:1500px">
+        <div class="w3-display-middle" style="width:65%">
+            <div class="w3-bar w3-black">
+                <button class="w3-bar-item w3-button tablink" onclick="openLink(event, 'Dates');"><i class="far fa-calendar-alt"></i> Date</button>
+                <button class="w3-bar-item w3-button tablink" onclick="openLink(event, 'Site');"><i class="fas fa-mountain"></i> Site</button>
+                <button class="w3-bar-item w3-button tablink" onclick="openLink(event, 'Country');"><i class="fas fa-globe"></i> Country</button>
             </div>
 
-            <div class="w3-quarter">
-                <div class="w3-card w3-white">
-                    <img src="~/images/5606416292_9d9acbd4c0_o.jpg" alt="Snow" style="width:100%">
-                    <div class="w3-container">
-                        <h3>Davos</h3>
-                        <p>
-                            Davos is an Alpine town, and a municipality in the Prättigau/Davos Region in the canton of Graubünden, Switzerland. It has a permanent population of 11,060 (2016).Davos is located on the river Landwasser,
-                            in the Rhaetian Alps, between the Plessur and Albula Range at 1,560 m (5,120 ft) above sea level.
-                        </p>
-                    </div>
+            <!-- Tabs -->
+            <div id="Dates" class="w3-container w3-white w3-padding-16 myLink">
+                <h3>Snowboarding the world with us‬‏</h3>
+                <p>Find Site by seasons‬‏</p>
+                <div class="w3-container w3-white w3-padding-16">
+                    <form action="/action_page.php" target="_blank">
+                        <div class="w3-row-padding" style="margin:0 -16px;">
+                            <div class="w3-half w3-margin-bottom">
+                                <label><i class="fa fa-calendar-o"></i> Check In</label>
+                                <input class="w3-input w3-border" type="date" name="SeasonStart" required>
+                            </div>
+                            <div class="w3-half">
+                                <label><i class="fa fa-calendar-o"></i> Check Out</label>
+                                <input class="w3-input w3-border" type="date" name="SeasonEnd" required>
+                            </div>
+                        </div>
+                        <button class="w3-button w3-dark-grey" type="submit"><i class="fa fa-search w3-margin-right"></i> Search availability</button>
+                    </form>
                 </div>
             </div>
 
-            <div class="w3-quarter">
-                <div class="w3-card w3-white">
-                    <img src="~/images/191035.jpg" alt="Lights" style="width:100%">
-                    <div class="w3-container">
-                        <h3>Val Thorens</h3>
-                        <p>
-                            In no other European skiing village are you as close to heaven as in Val Thorens.
-                            The famous winter sports village in the French region Rhône-Alpes lies at an altitude of 2.300 m,
-                            offers a breath-taking view to the French as well as the Swiss and Italian Alps and is thus regarded as the highest
-                            skiing station of Europe.
-                        </p>
-                    </div>
-                </div>
+            <div id="Site" class="w3-container w3-white w3-padding-16 myLink">
+                <h3>Find the best Sites</h3>
+                <p>We know The Best Sites</p>
+                <p>We know how to find The Best vication for you.</p>
+                <p><button class="w3-button w3-dark-grey">Search Sites</button></p>
             </div>
 
-            <div class="w3-quarter">
-                <div class="w3-card w3-white">
-                    <img src="~/images/5606415930_484f97965f_o.jpg" alt="Mountains" style="width:100%">
-                    <div class="w3-container">
-                        <h3>St Anton</h3>
-                        <p>
-                            Sankt Anton am Arlberg, commonly referred to as St. Anton, is a village and ski resort
-                            in the Austrian state of Tyrol. It lies in the Tyrolean Alps, with aerial tramways and chairlifts up to 2,811 m (9,222 ft), yielding a vertical drop of 1,507 m (4,944 ft).
-                            Skiing has a long history in St. Anton: ski instructors from the area emigrated to the US in the 1930s, helping to popularise the sport.
-                        </p>
-                    </div>
+            <div id="Country" class="w3-container w3-white w3-padding-16 myLink">
+                <h3>Snowboarding's Best Countries</h3>
+                <p>you choose the country we will do the rest...</p>
+                <p>The following list of the best snowboarding countries based on the relevant snowBoard resorts</p>
+                <input class="w3-input w3-border" type="text" placeholder="Search">
+                <p><button class="w3-button w3-dark-grey">Search Country</button></p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page content -->
+    <div class="w3-content" style="max-width:1100px;">
+        <!-- Our recommendations -->
+        <div class="w3-row-padding w3-padding-16">
+            <div class="w3-third w3-margin-bottom">
+                <img src="~/images/5606415930_484f97965f_o.jpg" alt="Davos" style="width:100%" height="230px">
+                <div class="w3-container w3-white">
+                    <h3>Davos</h3>
+                    <p>
+                        Davos is an Alpine town, and a municipality in the Prättigau/Davos Region in the canton of Graubünden,
+                        Switzerland. It has a permanent population of 11,060 (2016).Davos is located on the river Landwasser,
+                        in the Rhaetian Alps, between the Plessur and Albula Range at 1,560 m (5,120 ft) above sea level.
+                    </p>
+                    <button class="w3-button w3-block w3-black w3-margin-bottom">see the site</button>
+                </div>
+            </div>
+            <div class="w3-third w3-margin-bottom">
+                <img src="~/images/snowboard_skis_jump_pleasure_smiles_sun_11502_1920x1080.jpg" alt="StAnton" style="width:100%" height="185px">
+                <div class="w3-container w3-white">
+                    <h3>St Anton</h3>
+                    <p>
+                        Sankt Anton am Arlberg, commonly referred to as St. Anton,
+                        is a village and ski resort in the Austrian state of Tyrol.
+                        It lies in the Tyrolean Alps, with aerial tramways and chairlifts up to 2,811 m (9,222 ft),
+                        yielding a vertical drop of 1,507 m (4,944 ft).
+                        Skiing has a long history in St. Anton: ski instructors from the area emigrated to the US in the 1930s, helping to popularise the sport.
+                    </p>
+                    <button class="w3-button w3-block w3-black w3-margin-bottom">see the site</button>
+                </div>
+            </div>
+            <div class="w3-third w3-margin-bottom">
+                <img src="~/images/5606416292_9d9acbd4c0_o.jpg" alt="Valthorens" style="width:100%">
+                <div class="w3-container w3-white">
+                    <h3>Val Thorens</h3>
+                    <p>
+                        In no other European skiing village are you as close to heaven as in Val Thorens.
+                        The famous winter sports village in the French region Rhône-Alpes lies at an altitude of 2.300 m,
+                        offers a breath-taking view to the French as well as the Swiss and Italian
+                        Alps and is thus regarded as the highest
+                        skiing station of Europe.
+                    </p>
+
+                    <button class="w3-button w3-block w3-black w3-margin-bottom">Choose Room</button>
                 </div>
             </div>
         </div>
-    </section>
-    <!--reccommandations-->
-    <section>
-        <aside style="font-size:larger; font-style:italic;color:black;float:right;width:300px;border:medium">
-            <h3>Our Reccommandations:</h3>
-            <h3>inforamtion....bla</h3>
-            <h3>inforamtion....bla</h3>
-            <h3>inforamtion....bla</h3>
-            <h3>inforamtion....bla</h3>
-            <h3>inforamtion....bla</h3>
-            <h3>inforamtion....bla</h3>
-            <h3>inforamtion....bla</h3>
-        </aside>
-    </section>
-    <!----video---->
-    <h3>And if that's not enough let's see a video</h3>
-    <video width="800" height="500" controls>
-        <source src="~/video/St. Anton am Arlberg - Mein Skigebiet! (1).mp4" type="video/mp4">
-        <source src="movie.ogg" type="video/ogg">
-        Your browser does not support the video tag.
-    </video>
 
-    <!-- Footer -->
-    <footer>
-
-        <div style="position:relative;bottom:100px;z-index:1;" class="w3-tooltip w3-right">
-            <span class="w3-text w3-padding w3-teal w3-hide-small">Go To Top</span>
-            <a class="w3-button w3-theme" href="#myPage">
-                <span class="w3-xlarge">
-                    <i class="fa fa-chevron-circle-up"></i>
-                </span>
-            </a>
+        <!-- Our Work -->
+        <div class="w3-container">
+            <h3>Our Work</h3>
+            <p>
+                Founded in 2018, Snow Overflow is the largest, most trusted online community for Snow addicts to learn,
+                share their knowledge, and build their careers.
+                not more than 5 professional and aspiring riders visit Snow Overflow each month to enrich
+                other user's knowledge on how to develop new skills and miss job opportunities.
+            </p>
         </div>
-    </footer>
+        <section>
+            <div class="w3-row w3-container" style="margin:60px 0">
+                <div class="w3-half w3-container">
+                    <div class="w3-topbar w3-border-red">
+                        <h3>And if that's not enough let's see a video</h3>
+                        <video width="500" height="400" controls>
+                            <source src="~/video/St. Anton am Arlberg - Mein Skigebiet! (1).mp4" type="video/mp4">
+                            <source src="movie.ogg" type="video/ogg">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                </div>
 
-    <script>
-        // Script for side navigation
-        function w3_open() {
-            var x = document.getElementById("mySidebar");
-            x.style.width = "300px";
-            x.style.paddingTop = "10%";
-            x.style.display = "block";
-        }
+                <div class="w3-half w3-container">
+                    <div class="w3-topbar w3-border-red">
+                        <aside style="font-size:larger; font-family:Comic Sans MS;color:black;float:right;width:300px;border:medium">
+                            <h3>Our Reccommandations:</h3>
+                            <h3>inforamtion....bla</h3>
+                            <h3>inforamtion....bla</h3>
+                            <h3>inforamtion....bla</h3>
+                            <h3>inforamtion....bla</h3>
+                            <h3>inforamtion....bla</h3>
+                            <h3>inforamtion....bla</h3>
+                            <h3>inforamtion....bla</h3>
+                        </aside>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End page content -->
+        <!-- Footer -->
+        <footer class="w3-container w3-center w3-opacity w3-margin-bottom">
 
-        // Close side navigation
-        function w3_close() {
-            document.getElementById("mySidebar").style.display = "none";
-        }
+            <h5>Find Us On</h5>
+            <div class="w3-xlarge w3-padding-16">
+                <a type="button" class="btn" href="https://www.facebook.com/Snow-Overflow-343155969579083">
+                    <i class="fa fa-facebook-official w3-hover-opacity"></i>
+                </a>
+            </div>
+        </footer>
 
-        // Used to toggle the menu on smaller screens when clicking on the menu button
-        function openNav() {
-            var x = document.getElementById("navDemo");
-            if (x.className.indexOf("w3-show") == -1) {
-                x.className += " w3-show";
-            } else {
-                x.className = x.className.replace(" w3-show", "");
+
+        <script>
+            // Tabs
+            function openLink(evt, linkName) {
+                var i, x, tablinks;
+                x = document.getElementsByClassName("myLink");
+                for (i = 0; i < x.length; i++) {
+                    x[i].style.display = "none";
+                }
+                tablinks = document.getElementsByClassName("tablink");
+                for (i = 0; i < x.length; i++) {
+                    tablinks[i].className = tablinks[i].className.replace(" w3-red", "");
+                }
+                document.getElementById(linkName).style.display = "block";
+                evt.currentTarget.className += " w3-red";
             }
-        }
-    </script>
+            // Click on the first tablink on load
+            document.getElementsByClassName("tablink")[0].click();
+        </script>
 
 </body>
-
-

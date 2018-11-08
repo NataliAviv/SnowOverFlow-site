@@ -3,8 +3,9 @@
 @{
     ViewData["Title"] = "Index";
 }
-
-<h2>Search By Countries</h2>
+<div class="The-Favorite-Site">
+    <h2>Search By Countries</h2>
+</div>
 <p>
     @using (Html.BeginForm("Index", "Countries", FormMethod.Get))
     {
@@ -20,6 +21,7 @@
         <a asp-action="Create">Create New</a>
         <i class="far fa-plus-square"></i>
     }
+
 </p>
 <table class="table">
     <thead>

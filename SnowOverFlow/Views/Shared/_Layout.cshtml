@@ -11,7 +11,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <style>
             body, h1, h2, h3, h4, h5, h6 {
-                font-family: "Raleway", Arial, Helvetica, sans-serif
+                font-family: Comic Sans MS;
             }
         </style>
         <environment include="Development">
@@ -36,45 +36,45 @@
 </head>
 <body class="w3-light-grey">
     <!--navbar-->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <img src="~/images/logo.png">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li style="color:white">
-                        <a href="#" class="nav-link">
-                            <i class="fas fa-map-marker-alt"></i>
-                            &nbsp;
+    <nav class="navbar navbar-expand-lg navbar-light bg-light"style="max-height:70px" >
+        <img src="~/images/logo.png" style="max-height:150px">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li style="color:white">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-map-marker-alt"></i>
+                        &nbsp;
+                    </a>
+                </li>
+                <li class="nav-item active">
+                    @if (User.IsInRole(SD.AdminEndUser) || User.IsInRole(SD.CustomerEndUser))
+                    {
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Home
                         </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" asp-controller="Countries" asp-action="Index">Countries</a>
+                            <a class="dropdown-item" asp-controller="Sites" asp-action="Index">Sites</a>
+                            <a class="dropdown-item" asp-controller="Home" asp-action="Statistics">Statistics</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Map</a>
+                        </div>
                     </li>
-                    <li class="nav-item active">
-                        @if (User.IsInRole(SD.AdminEndUser) || User.IsInRole(SD.CustomerEndUser))
-                        {
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Home
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" asp-controller="Countries" asp-action="Index">Countries</a>
-                                <a class="dropdown-item" asp-controller="Sites" asp-action="Index">Sites</a>
-                                <a class="dropdown-item" asp-controller="Home" asp-action="Statistics">Statistics</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Map</a>
-                            </div>
-                        </li>
-                        <li><a class="nav-link" asp-controller="Home" asp-action="About">About</a> </li>
-                        <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Contact">Contact </a> </li>} </ul>
-                </div>
-                <div class="form-inline">
-                    @await Html.PartialAsync("_loginPartial")
-                </div>
-            </nav>
+                    <li><a class="nav-link" asp-controller="Home" asp-action="About">About</a> </li>
+                    <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Contact">Contact </a> </li>}
+                </ul>
+            </div>
+            <div class="form-inline">
+                @await Html.PartialAsync("_loginPartial")
+            </div>
+        </nav>
     <!---header-->
             <header class="w3-display-container w3-content" style="max-width:1500px;">
                 <img class="w3-image" src="~/images/Linkedin-background-photo.png" alt="The snow" style="min-width:1000px" width="1500" height="350">
-                
             </header>
             <div class="container body-content">
                 <br />
@@ -82,6 +82,7 @@
                 <br />
                 <hr />
             </div>
+
 
             <footer class="footer">
                 <div class="cont">
