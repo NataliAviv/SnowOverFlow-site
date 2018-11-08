@@ -7,6 +7,7 @@
     <script src="https://rawgit.com/chen0040/js-recommender/master/build/jsrecommender.min.js" type="application/javascript"></script>
 -->
 <style>
+
     .weather {
         width: 100%;
         height: 62px;
@@ -53,6 +54,45 @@
                 }
 </style>
 <style>
+    .like-content .btn-secondary {
+  display: block;
+  margin: 40px auto 0px;
+  text-align: center;
+  background: #ed2553;
+  border-radius: 3px;
+  box-shadow: 0 10px 20px -8px #f04b71;
+  padding: 10px 17px;
+  font-size: 18px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  color: #fff;
+  text-decoration: none;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+}
+.like-content .btn-secondary:hover {
+  transform: translateY(-3px);
+}
+.like-content .btn-secondary .fa {
+  margin-right: 5px;
+}
+.animate-like {
+  animation-name: likeAnimation;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-duration: 0.65s;
+}
+@@keyframes likeAnimation {
+  0% {
+    transform: scale(30);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+
     a {
         text-decoration:none;
         color:inherit;
@@ -122,6 +162,8 @@
             -webkit-transform: rotate(90deg);
             transform: rotate(90deg);
         }
+
+
 
 </style>
 <h2>Details</h2>
@@ -208,6 +250,11 @@
             @Html.DisplayFor(model => model.Country.Name)
         </dd>
     </dl>
+</div>
+<div class="like-content">
+    <button class="btn-secondary like-review">
+        <i class="fa fa-heart" aria-hidden="true"></i> Like
+    </button>
 </div>
 <div class="recommendation-block">If you liked this site you will surely love these ones :</div>
 <div id="recommendations-sites" style="display:flex">
@@ -380,6 +427,23 @@
         s.setAttribute('data-timestamp', +new Date());
         (d.head || d.body).appendChild(s);
     })();
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var id = '@Model.ID';
+        $.getJSON("/getLike?siteId=" + id, function (data) {
+            console.log("success", data);
+            $('.like-review')[0].html('<i class="fa fa-heart" aria-hidden="true"></i> You liked this');
+            $('.like-review')[0].children('.fa-heart').addClass('animate-like');
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            console.log("fail", textStatus);
+                $(document).one('click', '.like-review', function (e) {
+                    $(this).html('<i class="fa fa-heart" aria-hidden="true"></i> You liked this');
+                    $(this).children('.fa-heart').addClass('animate-like');
+                });
+            });
+    });
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <script src='//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/d3.min.js'></script>

@@ -221,7 +221,7 @@ namespace SnowOverFlow.Controllers
             return View(MinBeerPrice);
         }
 
-        [HttpGet]
+        [HttpGet("getLike")]
         public async Task<IActionResult> getLike(int? siteId)
         {
             var userId = (await _userManager.GetUserAsync(HttpContext.User))?.Id;
@@ -247,9 +247,7 @@ namespace SnowOverFlow.Controllers
                 .Include(s => s.Site)
                 .SingleOrDefaultAsync(m=> m.ApplicationUser.Id == userId && m.Site.ID == site.ID );
 
-
-
-            return Ok(userId);
+            return Ok(new {like=true });
         }
         [HttpGet("site/getSites")]
         public async Task<IActionResult> getSites(int?[] siteIds, int? countryId)
