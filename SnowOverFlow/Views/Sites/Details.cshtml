@@ -166,6 +166,7 @@
 
 
 </style>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 <h2>Details</h2>
 <div>
     <h4>Site</h4>
@@ -252,7 +253,7 @@
     </dl>
 </div>
 <div class="like-content">
-    <button class="btn-secondary like-review">
+    <button class="btn-secondary like-review" id="like-review">
         <i class="fa fa-heart" aria-hidden="true"></i> Like
     </button>
 </div>
@@ -344,12 +345,15 @@
             for (var i = 0; i < predicted_table.columnNames.length; ++i) {
                 var user = predicted_table.columnNames[i];
                 if (meUser == user) {
-                    //console.log('For user: ' + user);
                     for (var j = 0; j < predicted_table.rowNames.length; ++j) {
                         var site = predicted_table.rowNames[j];
-                        if (table.getCell(site, user) != 1) {
+                        if (site != id && Math.round(predicted_table.getCell(site, user)) == 1) {
                             recommendedIds.push(site);
                         }
+                        if (recommendedIds.length == 4) break;
+                        //if (table.getCell(site, user) != 1) {
+                          //  recommendedIds.push(site);
+                        //}
                         //console.log('Site [' + site + '] has actual rating of ' + Math.round(table.getCell(site, user)));
                         //console.log('Site [' + site + '] is predicted to have rating ' + Math.round(predicted_table.getCell(site, user)));
                     }
@@ -434,8 +438,19 @@
         var id = '@Model.ID';
         $.getJSON("/getLike?siteId=" + id, function (data) {
             console.log("success", data);
-            $('.like-review')[0].html('<i class="fa fa-heart" aria-hidden="true"></i> You liked this');
-            $('.like-review')[0].children('.fa-heart').addClass('animate-like');
+            if (data.like) {
+                $("#like-review").html('<i class="fa fa-heart" aria-hidden="true"></i> You liked this');
+                $('#like-review').children('.fa-heart').addClass('animate-like');
+            } else {
+                $(document).one('click', '.like-review', function (e) {
+                    $(this).html('<i class="fa fa-heart" aria-hidden="true"></i> You liked this');
+                    $(this).children('.fa-heart').addClass('animate-like');
+                    $.getJSON("/toggle_like?siteId=" + id, () => {
+                        $("#like-review").off();
+                    });
+                });
+            }
+            
         }).fail(function (jqXHR, textStatus, errorThrown) {
             console.log("fail", textStatus);
                 $(document).one('click', '.like-review', function (e) {

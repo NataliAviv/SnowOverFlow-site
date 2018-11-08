@@ -247,7 +247,7 @@ namespace SnowOverFlow.Controllers
                 .Include(s => s.Site)
                 .SingleOrDefaultAsync(m=> m.ApplicationUser.Id == userId && m.Site.ID == site.ID );
 
-            return Ok(new {like=true });
+            return Ok(new { like = (like != null) });
         }
         [HttpGet("site/getSites")]
         public async Task<IActionResult> getSites(int?[] siteIds, int? countryId)
