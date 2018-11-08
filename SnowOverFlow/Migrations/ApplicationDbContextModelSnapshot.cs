@@ -219,6 +219,19 @@ namespace SnowOverFlow.Migrations
                     b.ToTable("Country");
                 });
 
+            modelBuilder.Entity("SnowOverFlow.Models.Like", b =>
+                {
+                    b.Property<string>("UserID");
+
+                    b.Property<int>("SiteID");
+
+                    b.HasKey("UserID", "SiteID");
+
+                    b.HasAlternateKey("SiteID", "UserID");
+
+                    b.ToTable("Like");
+                });
+
             modelBuilder.Entity("SnowOverFlow.Models.Site", b =>
                 {
                     b.Property<int>("ID")
@@ -317,6 +330,19 @@ namespace SnowOverFlow.Migrations
                     b.HasOne("SnowOverFlow.Models.Continent", "Continent")
                         .WithMany("Countries")
                         .HasForeignKey("ContinentID")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("SnowOverFlow.Models.Like", b =>
+                {
+                    b.HasOne("SnowOverFlow.Models.Site", "Site")
+                        .WithMany()
+                        .HasForeignKey("SiteID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("SnowOverFlow.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

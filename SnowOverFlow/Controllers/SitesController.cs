@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using SnowOverFlow.Data;
 using SnowOverFlow.Models;
 using SnowOverFlow.Utility;
+using Microsoft.AspNetCore.Identity;
 
 namespace SnowOverFlow.Controllers
 {
@@ -17,10 +18,13 @@ namespace SnowOverFlow.Controllers
     public class SitesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly Like _like;
 
-        public SitesController(ApplicationDbContext context)
+        public SitesController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Sites
@@ -184,6 +188,45 @@ namespace SnowOverFlow.Controllers
             return View(sites);
         }
 
-        
+        // GET: sites/getLike
+        [HttpGet]
+        public async Task<IActionResult> getLike(int? siteId)
+        {
+            var userId = (await _userManager.GetUserAsync(HttpContext.User))?.Id;
+            if (userId == null)
+            {
+                return Unauthorized();
+            }
+            if (siteId == null)
+            {
+                return NotFound();
+            }
+
+            var site = await _context.Site
+                .Include(s => s.Country)
+                .SingleOrDefaultAsync(m => m.ID == siteId);
+            if (site == null)
+            {
+                return NotFound();
+            }
+            //m => m.ApplicationUser. == userId && 
+            var like = await _context.Like
+                .Include(s => s.ApplicationUser)
+                .Include(s => s.Site)
+                .SingleOrDefaultAsync(m=> m.ApplicationUser.Id == userId && m.Site.ID == site.ID );
+
+
+
+            return Ok(userId);
+        }
+        [HttpGet("site/getSites")]
+        public async Task<IActionResult> getSites(int?[] siteIds, int? countryId)
+        {
+            var sites2 = _context.Site.Where(x => siteIds.Contains(x.ID));
+
+            return Ok(sites2);
+        }
+
+
     }
 }
