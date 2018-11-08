@@ -21,6 +21,8 @@ namespace SnowOverFlow.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<Like>().HasKey(x => new { x.UserID, x.SiteID });
+
             base.OnModelCreating(builder);
             // Customize the ASP.NET Identity model and override the defaults if needed.
             // For example, you can rename the ASP.NET Identity table names and more.
@@ -35,6 +37,7 @@ namespace SnowOverFlow.Data
 
         public DbSet<SnowOverFlow.Models.User> User { get; set; }
         public DbSet<ApplicationUser> ApplicationUser{ get; set; }
+        public DbSet<SnowOverFlow.Models.Like> Like { get; set; }
 
     }
 }

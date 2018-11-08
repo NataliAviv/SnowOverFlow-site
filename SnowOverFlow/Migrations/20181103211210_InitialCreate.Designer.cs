@@ -11,8 +11,8 @@ using System;
 namespace SnowOverFlow.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181103153443_ziv40")]
-    partial class ziv40
+    [Migration("20181103211210_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -220,6 +220,19 @@ namespace SnowOverFlow.Migrations
                     b.ToTable("Country");
                 });
 
+            modelBuilder.Entity("SnowOverFlow.Models.Like", b =>
+                {
+                    b.Property<string>("UserID");
+
+                    b.Property<int>("SiteID");
+
+                    b.HasKey("UserID", "SiteID");
+
+                    b.HasAlternateKey("SiteID", "UserID");
+
+                    b.ToTable("Like");
+                });
+
             modelBuilder.Entity("SnowOverFlow.Models.Site", b =>
                 {
                     b.Property<int>("ID")
@@ -318,6 +331,19 @@ namespace SnowOverFlow.Migrations
                     b.HasOne("SnowOverFlow.Models.Continent", "Continent")
                         .WithMany("Countries")
                         .HasForeignKey("ContinentID")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("SnowOverFlow.Models.Like", b =>
+                {
+                    b.HasOne("SnowOverFlow.Models.Site", "Site")
+                        .WithMany()
+                        .HasForeignKey("SiteID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("SnowOverFlow.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

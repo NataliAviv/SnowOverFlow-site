@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace SnowOverFlow.Migrations
 {
-    public partial class ziv40 : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -233,6 +233,31 @@ namespace SnowOverFlow.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Like",
+                columns: table => new
+                {
+                    UserID = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    SiteID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Like", x => new { x.UserID, x.SiteID });
+                    table.UniqueConstraint("AK_Like_SiteID_UserID", x => new { x.SiteID, x.UserID });
+                    table.ForeignKey(
+                        name: "FK_Like_Site_SiteID",
+                        column: x => x.SiteID,
+                        principalTable: "Site",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Like_AspNetUsers_UserID",
+                        column: x => x.UserID,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -301,13 +326,16 @@ namespace SnowOverFlow.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Site");
+                name: "Like");
 
             migrationBuilder.DropTable(
                 name: "User");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Site");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
