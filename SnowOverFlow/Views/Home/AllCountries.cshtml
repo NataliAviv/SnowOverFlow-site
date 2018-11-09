@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Sites";
+    ViewData["Title"] = "Countries";
 }
 <style>
     a {
@@ -80,7 +80,7 @@
 </style>
 
 
-<h2>Sites</h2>
+<h2>Countries</h2>
 <div>
     Country name:<br />
     <input type="text" onkeyup="search()" id="search" />
@@ -110,7 +110,7 @@ By Language:
 
             for (var i = 0; i < result.length; i++) {
                 recommendations +=
-                    '<a href="/countries/Details/' + result[i].country.id + '">' +
+                    '<a href="/home/allsites?country=' + result[i].country.id + '">' +
                     '<div class="card-container">' +
                     '<div class="card">' +
                     '<div class="image">' +
@@ -169,17 +169,17 @@ By Language:
         var countries = "";
         for (var i = 0; i < filtered.length; i++) {
             countries +=
-                '<a href="/countries/Details/' + data[i].country.id + '">' +
+                '<a href="/home/allsites?country=' + filtered[i].country.id + '">' +
                 '<div class="card-container">' +
                 '<div class="card">' +
                 '<div class="image">' +
-                `<img src='/images/` + data[i].country.name + `.jpg' width='100%' />` +
+            `<img src='/images/` + filtered[i].country.name + `.jpg' width='100%' />` +
                 '</div>' +
                 '<div class="text">' +
                 '<div class="fab">&#43;</div>' +
-                '<h3>' + data[i].country.name + '</h3>' +
+            '<h3>' + filtered[i].country.name + '</h3>' +
                 '<p>' +
-                'Num of sites :' + data[i].count +
+            'Num of sites :' + filtered[i].count +
                 '</p>' +
                 '</div>' +
                 '</div>' +

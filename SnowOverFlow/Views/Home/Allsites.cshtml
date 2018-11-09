@@ -102,6 +102,10 @@ By Language:
     var language = [];
     $(document).ready(function () {
         $.getJSON("/site/getAllSites", function (result) {
+            var sPageURL = window.location.search.substring(1);
+            var countryId = sPageURL.split('=')[1];
+
+            console.log("natali", sPageURL);
             data = result.sites;
             countries = result.countries;
             var recommendations = '';
@@ -133,18 +137,24 @@ By Language:
             }
 
             for (var i = 0; i < countries.length; i++) {
-                checkboxes +=
-                    `<input type="checkbox" name="` + countries[i].name + `" value="` + countries[i].id + `" onClick="search()">` + countries[i].name + '<br>';
+                if (countries[i].id == countryId) {
+                    checkboxes +=
+                        `<input type="checkbox" name="` + countries[i].name + `" value="` + countries[i].id + `"checked onClick="search()">` + countries[i].name + '\t';
+                }else {
+                    checkboxes +=
+                        `<input type="checkbox" name="` + countries[i].name + `" value="` + countries[i].id + `" onClick="search()">` + countries[i].name + '\t';
+                }
                 if (!language.includes(countries[i].language)) language.push(countries[i].language);
                 
             }
             for (var i = 0; i < language.length; i++) {
                 languageBoxes +=
-                    `<input type="checkbox" name="` + language[i] + `" value="` + language[i] + `" onClick="search()">` + language[i] + '<br>';
+                    `<input type="checkbox" name="` + language[i] + `" value="` + language[i] + `" onClick="search()">` + language[i] + '\t';
             }
             $('#sites').html(recommendations);
             $('#checkbox').html(checkboxes);
             $('#checkbox-language').html(languageBoxes);
+            search();
         });
 
     });
