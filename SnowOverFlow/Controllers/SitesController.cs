@@ -257,6 +257,15 @@ namespace SnowOverFlow.Controllers
             return Ok(sites2);
         }
 
+        [HttpGet("site/getAllSites")]
+        public async Task<IActionResult> getAllSites()
+        {
+            var sites2 = await  _context.Site.Include(s => s.Country).ToListAsync();
+            var countries2 = await _context.Country.ToListAsync(); 
+
+            return Ok(new { sites= sites2,countries= countries2 });
+        }
+
         public IActionResult PriceLess20()
         {
 

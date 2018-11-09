@@ -101,6 +101,9 @@
         text-decoration: none;
         color: inherit;
     }
+    .card-container {
+        width:300px;
+    }
     .card {
         display: inline-block;
         box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .15);
@@ -258,7 +261,7 @@
     </button>
 </div>
 <div class="recommendation-block">If you liked this site you will surely love these ones :</div>
-<div id="recommendations-sites" style="display:flex">
+<div id="recommendations-sites" style="display:flex ;width:100%; flex-wrap:wrap">
     
 </div>
 <div id="disqus_thread"></div>
@@ -331,16 +334,13 @@
             var recommendedIds = [];
 
             var table = new jsrecommender.Table();
-            for (var i = 0; i < data.likes.result.length; i++) {
-                table.setCell(data.likes.result[i].siteID.toString(), data.likes.result[i].userID.split("-").join("").substr(0, 14), 1);
+            for (var i = 0; i < data.likes.length; i++) {
+                table.setCell(data.likes[i].siteID.toString(), data.likes[i].userID.split("-").join("").substr(0, 14), 1);
             };
 
             var model = recommender.fit(table);
-            console.log(model);
 
             predicted_table = recommender.transform(table);
-
-            //console.log(predicted_table);
 
             for (var i = 0; i < predicted_table.columnNames.length; ++i) {
                 var user = predicted_table.columnNames[i];
@@ -351,11 +351,6 @@
                             recommendedIds.push(site);
                         }
                         if (recommendedIds.length == 4) break;
-                        //if (table.getCell(site, user) != 1) {
-                          //  recommendedIds.push(site);
-                        //}
-                        //console.log('Site [' + site + '] has actual rating of ' + Math.round(table.getCell(site, user)));
-                        //console.log('Site [' + site + '] is predicted to have rating ' + Math.round(predicted_table.getCell(site, user)));
                     }
                 }    
             };
@@ -373,10 +368,10 @@
                 for (var i = 0; i < data.length; i++) {
                     recommendations += 
                     '<a href="/sites/Details/' + data[i].id + '">' +
-                    '<div class="col-md-6 col-sm-8 col-xs-12 col-md-offset-3 col-sm-offset-2">' +
+                    '<div class="card-container">' +
                         '<div class="card">' +
                             '<div class="image">' +
-                                `<img src='/images/snowboard.jpg' width='100%' />` +
+                                `<img src='/images/` + data[i].id +`.jpg' width='100%' />` +
                             '</div>' +
                             '<div class="text">' +
                                 '<div class="fab">&#43;</div>' +

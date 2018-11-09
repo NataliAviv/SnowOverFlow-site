@@ -108,7 +108,7 @@ namespace SnowOverFlow.Controllers
         {
             var userId = (await _userManager.GetUserAsync(HttpContext.User))?.Id;
             var likes = _context.Like;
-            var likes2 = likes.ToListAsync();
+            var likes2 = await likes.ToListAsync();
             var result = new { likes=likes2};
 
 
