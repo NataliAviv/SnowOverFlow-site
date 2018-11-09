@@ -27,6 +27,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Views\Home\AllCountries.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Home\Allsites.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
