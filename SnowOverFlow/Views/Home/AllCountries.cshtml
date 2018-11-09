@@ -1,0 +1,193 @@
+﻿@{
+    ViewData["Title"] = "Sites";
+}
+<style>
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+        a:hover {
+            text-decoration: none;
+            color: inherit;
+        }
+
+    .card-container {
+        width: 300px;
+    }
+
+    .card {
+        display: inline-block;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .15);
+        margin: 20px;
+        position: relative;
+        margin-bottom: 50px;
+        transition: all 0.2s ease-in-out;
+    }
+
+        .card:hover {
+            /*box-shadow: 0 5px 22px 0 rgba(0,0,0,.25);*/
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+            margin-bottom: 54px;
+        }
+
+    .image {
+        height: 150px;
+        opacity: 0.7;
+        overflow: hidden;
+        transition: all 0.2s ease-in-out;
+    }
+
+        .image:hover, .card:hover .image {
+            height: 150px;
+            opacity: 1;
+        }
+
+    .text {
+        background: #fff;
+        padding: 20px;
+        min-height: 200px;
+    }
+
+        .text p {
+            margin-bottom: 0px;
+        }
+
+    .fab {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        position: absolute;
+        margin-top: -50px;
+        right: 20px;
+        box-shadow: 0px 2px 6px rgba(0, 0, 0, .3);
+        color: #fff;
+        font-size: 48px;
+        line-height: 48px;
+        text-align: center;
+        background: #0066a2;
+        -webkit-transition: -webkit-transform 0.2s ease-in-out;
+        transition: transform 0.2s ease-in-out;
+    }
+
+        .fab:hover {
+            background: #549d3c;
+            cursor: pointer;
+            -ms-transform: rotate(90deg);
+            -webkit-transform: rotate(90deg);
+            transform: rotate(90deg);
+        }
+</style>
+
+
+<h2>Sites</h2>
+<div>
+    Country name:<br />
+    <input type="text" onkeyup="search()" id="search" />
+</div>
+@*<br />
+By Country:
+<div id="checkbox"></div>
+<br />
+By Language:
+<div id="checkbox-language"></div>*@
+
+<div id="sites" style="width:100%;display:flex;flex-direction:row;flex-wrap:wrap">
+
+</div>
+
+
+<script type="text/javascript">
+    var data;
+    var language = [];
+    $(document).ready(function () {
+        $.getJSON("/countries/numSitesPercountry", function (result) {
+            data = result;
+            countries = result.countries;
+            var recommendations = '';
+            var checkboxes = '';
+            var languageBoxes = '';
+
+            for (var i = 0; i < result.length; i++) {
+                recommendations +=
+                    '<a href="/countries/Details/' + result[i].country.id + '">' +
+                    '<div class="card-container">' +
+                    '<div class="card">' +
+                    '<div class="image">' +
+                `<img src='/images/` + result[i].country.name + `.jpg' width='100%' />` +
+                    '</div>' +
+                    '<div class="text">' +
+                    '<div class="fab">&#43;</div>' +
+                    '<h3>' + result[i].country.name + '</h3>' +
+                    '<p>' +
+                    'Num of sites :' + result[i].count +
+                    '</p>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</a>';
+            }
+
+            //for (var i = 0; i < result.length; i++) {
+            //    checkboxes +=
+            //        `<input type="checkbox" name="` + result[i].name + `" value="` + countries[i].id + `" onClick="search()">` + countries[i].name + '<br>';
+            //    if (!language.includes(countries[i].language)) language.push(countries[i].language);
+
+            //}
+            //for (var i = 0; i < language.length; i++) {
+            //    languageBoxes +=
+            //        `<input type="checkbox" name="` + language[i] + `" value="` + language[i] + `" onClick="search()">` + language[i] + '<br>';
+            //}
+            $('#sites').html(recommendations);
+            //$('#checkbox').html(checkboxes);
+            //$('#checkbox-language').html(languageBoxes);
+        });
+
+    });
+
+    function search() {
+        //var checkBoxArray = [];
+        //var languageBoxArray = [];
+        //$("#checkbox input:checkbox").each(function () {
+        //    if ($(this).is(':checked')) {
+        //        checkBoxArray.push($(this).attr("value"));
+        //    }
+        //});
+
+        //$("#checkbox-language input:checkbox").each(function () {
+        //    if ($(this).is(':checked')) {
+        //        languageBoxArray.push($(this).attr("value"));
+        //    }
+        //});
+
+        var searchString = $("#search").val().toLowerCase();
+        var filtered = data.filter(x => (
+            (searchString.length > 0 ? x.country.name.toLowerCase().includes(searchString) : true) && true
+            //(checkBoxArray.length > 0 ? checkBoxArray.includes(x.countryId.toString()) : true) 
+            //(languageBoxArray.length > 0 ? languageBoxArray.includes(x.country.language.toString()) : true)
+        ));
+        var countries = "";
+        for (var i = 0; i < filtered.length; i++) {
+            countries +=
+                '<a href="/countries/Details/' + data[i].country.id + '">' +
+                '<div class="card-container">' +
+                '<div class="card">' +
+                '<div class="image">' +
+                `<img src='/images/` + data[i].country.name + `.jpg' width='100%' />` +
+                '</div>' +
+                '<div class="text">' +
+                '<div class="fab">&#43;</div>' +
+                '<h3>' + data[i].country.name + '</h3>' +
+                '<p>' +
+                'Num of sites :' + data[i].count +
+                '</p>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</a>';
+        }
+        $('#sites').html(countries);
+
+    }
+</script>
+
