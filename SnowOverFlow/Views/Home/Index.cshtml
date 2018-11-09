@@ -22,47 +22,29 @@
     <header class="w3-display-container w3-content w3-hide-small" style="max-width:1500px">
         <div class="w3-display-middle" style="width:65%">
             <div class="w3-bar w3-black">
-                <button class="w3-bar-item w3-button tablink" onclick="openLink(event, 'Dates');"><i class="far fa-calendar-alt"></i> Date</button>
+               
                 <button class="w3-bar-item w3-button tablink" onclick="openLink(event, 'Site');"><i class="fas fa-mountain"></i> Site</button>
                 <button class="w3-bar-item w3-button tablink" onclick="openLink(event, 'Country');"><i class="fas fa-globe"></i> Country</button>
             </div>
 
-            <!-- Tabs -->
-            <div id="Dates" class="w3-container w3-white w3-padding-16 myLink">
-                <h3>Let's ride the world TOGETHER‬‏</h3>
-                <p>Find Site by seasons‬‏</p>
-                <div class="w3-container w3-white w3-padding-16">
-                    <form action="/action_page.php" target="_blank">
-                        <div class="w3-row-padding" style="margin:0 -16px;">
-                            <div class="w3-half w3-margin-bottom">
-                                <label><i class="fa fa-calendar-o"></i> SeasonStart</label>
-                                <input class="w3-input w3-border" type="date" name="SeasonStart" required>
-                            </div>
-                            <div class="w3-half">
-                                <label><i class="fa fa-calendar-o"></i> SeasonEnd</label>
-                                <input class="w3-input w3-border" type="date" name="SeasonEnd" required>
-                            </div>
-                        </div>
-                        <button class="w3-button w3-dark-grey" type="submit"><i class="fa fa-search w3-margin-right"></i> Search availability</button>
-                    </form>
-                </div>
-            </div>
-
+       
             <div id="Site" class="w3-container w3-white w3-padding-16 myLink">
                 <h3>Find the best Sites</h3>
                 <p>We know The Best Sites</p>
                 <p>We know how to find the Best vacation for you.</p>
-                <p><button class="w3-button w3-dark-grey">Search Sites</button></p>
+                <a class="nav-link" href="https://localhost:44345/home/allsites">
+                    <p><button class="w3-button w3-dark-grey">Search Sites</button></p>
+                </a>
             </div>
 
             <div id="Country" class="w3-container w3-white w3-padding-16 myLink">
                 <h3>Best countries to ride</h3>
                 <p>you choose the country - we'll show you the rest...</p>
                 <p>The following list of the best countries to ride is based on the relevant ski resorts</p>
-                <input class="w3-input w3-border" type="text" placeholder="Search">
-                <p><button class="w3-button w3-dark-grey">Search Country</button></p>
+                <a class="nav-link" href="https://localhost:44345/countries">
+                    <p><button class="w3-button w3-dark-grey">Search Country</button></p>
+                </a>
             </div>
-        </div>
     </header>
 
     <!-- Page content -->
