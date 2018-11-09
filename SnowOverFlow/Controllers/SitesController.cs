@@ -32,15 +32,15 @@ namespace SnowOverFlow.Controllers
         {
             if (searchBy == "Name")
             {
-                return View(_context.Site.Where(x => x.Name.StartsWith(search) || search == null).ToList());
+                return View(_context.Site.Where(x => x.Name.StartsWith(search) || search == null).Include(s => s.Country).ToList());
             }
             if (searchBy == "Country")
             {
-                return View(_context.Site.Where(x => x.Country.Name.StartsWith(search) || search == null).ToList());
+                return View(_context.Site.Where(x => x.Country.Name.StartsWith(search) || search == null).Include(s => s.Country).ToList());
             }
             if(searchBy=="Rank")
             {
-                return View(_context.Site.Where(x => x.Rank.ToString(search)==search || search == null).ToList());
+                return View(_context.Site.Where(x => x.Rank.ToString(search)==search || search == null).Include(s => s.Country).ToList());
             }
             var applicationDbContext = _context.Site.Include(s => s.Country);
             return View(await applicationDbContext.ToListAsync());
