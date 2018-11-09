@@ -51,7 +51,7 @@ namespace SnowOverFlow.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("Error","Error");
             }
 
             var site = await _context.Site
@@ -59,7 +59,7 @@ namespace SnowOverFlow.Controllers
                 .SingleOrDefaultAsync(m => m.ID == id);
             if (site == null)
             {
-                return NotFound();
+                return RedirectToAction("Error", "Error");
             }
 
             return View(site);
@@ -96,13 +96,13 @@ namespace SnowOverFlow.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("Error", "Error");
             }
 
             var site = await _context.Site.SingleOrDefaultAsync(m => m.ID == id);
             if (site == null)
             {
-                return NotFound();
+                return RedirectToAction("Error", "Error");
             }
             ViewData["CountryId"] = new SelectList(_context.Country, "ID", "Name", site.CountryId);
             return View(site);
@@ -117,7 +117,7 @@ namespace SnowOverFlow.Controllers
         {
             if (id != site.ID)
             {
-                return NotFound();
+                return RedirectToAction("Error", "Error");
             }
 
             if (ModelState.IsValid)
@@ -131,7 +131,7 @@ namespace SnowOverFlow.Controllers
                 {
                     if (!SiteExists(site.ID))
                     {
-                        return NotFound();
+                        return RedirectToAction("Error", "Error");
                     }
                     else
                     {
@@ -150,7 +150,7 @@ namespace SnowOverFlow.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("Error", "Error");
             }
 
             var site = await _context.Site
@@ -158,7 +158,7 @@ namespace SnowOverFlow.Controllers
                 .SingleOrDefaultAsync(m => m.ID == id);
             if (site == null)
             {
-                return NotFound();
+                return RedirectToAction("Error", "Error");
             }
 
             return View(site);

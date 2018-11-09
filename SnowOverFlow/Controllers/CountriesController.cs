@@ -47,8 +47,8 @@ namespace SnowOverFlow.Controllers
        {
            if (id == null)
            {
-               return NotFound();
-           }
+                return RedirectToAction("Error", "Error");
+            }
 
 
            var country = await _context.Country
@@ -56,8 +56,8 @@ namespace SnowOverFlow.Controllers
                .SingleOrDefaultAsync(m => m.ID == id);
            if (country == null)
            {
-               return NotFound();
-           }
+                return RedirectToAction("Error", "Error");
+            }
 
            return View(country);
        }
@@ -94,14 +94,14 @@ namespace SnowOverFlow.Controllers
        {
            if (id == null)
            {
-               return NotFound();
-           }
+                return RedirectToAction("Error", "Error");
+            }
 
            var country = await _context.Country.SingleOrDefaultAsync(m => m.ID == id);
            if (country == null)
            {
-               return NotFound();
-           }
+                return RedirectToAction("Error", "Error");
+            }
            ViewData["ContinentID"] = new SelectList(_context.Continent, "ID", "Name", country.ContinentID);
            return View(country);
        }
@@ -116,8 +116,8 @@ namespace SnowOverFlow.Controllers
        {
            if (id != country.ID)
            {
-               return NotFound();
-           }
+                return RedirectToAction("Error", "Error");
+            }
 
            if (ModelState.IsValid)
            {
@@ -130,8 +130,8 @@ namespace SnowOverFlow.Controllers
                {
                    if (!CountryExists(country.ID))
                    {
-                       return NotFound();
-                   }
+                        return RedirectToAction("Error", "Error");
+                    }
                    else
                    {
                        throw;
@@ -148,16 +148,16 @@ namespace SnowOverFlow.Controllers
        {
            if (id == null)
            {
-               return NotFound();
-           }
+                return RedirectToAction("Error", "Error");
+            }
 
            var country = await _context.Country
                .Include(c => c.Continent)
                .SingleOrDefaultAsync(m => m.ID == id);
            if (country == null)
            {
-               return NotFound();
-           }
+                return RedirectToAction("Error", "Error");
+            }
 
            return View(country);
        }
