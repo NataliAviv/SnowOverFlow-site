@@ -1,6 +1,7 @@
 # SnowOverFlow-site
 This website was built with ASP.NET Core 2.1 MVC (Multi-Page Application)
 ### Overview
+![ezgif com-video-to-gif](https://user-images.githubusercontent.com/38752364/51107820-b22afa00-17f8-11e9-961f-828d4d7c2558.gif)
 
 ### Features and Description
 
