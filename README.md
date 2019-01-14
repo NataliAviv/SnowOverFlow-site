@@ -1,7 +1,7 @@
 # SnowOverFlow-site
 This website was built with ASP.NET Core 2.1 MVC (Multi-Page Application)
 
-Features and Description
+### Features and Description
 
 •	The system has four different models - Sites, Sites, User, Likes.
 
@@ -32,7 +32,7 @@ resort by country and you can choose a site according to continent or language.
 •	The system will interface with the Facebook API and will display the sites and the site itself with comments, etc.
 
 
-Technology / Framework / Library
+### Technology / Framework / Library
 
 •	ASP.NET Core 2.1 (Backend).
 
